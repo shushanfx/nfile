@@ -1,0 +1,43 @@
+[{
+	"id":1,
+	"code":"网页",
+	"name":"index.html",
+	"role":"显示首页",
+	"path":"d/asdf/dfd/",
+	"iconCls":"icon-page",
+	"state":"closed",
+	"children":[{
+		"id":2,
+		"code":"类",
+		"name":"user",
+		"iconCls":"icon-class",
+		"role":"xxxx"
+	},{
+		"id":3,
+		"code":"javascript",
+		"name":"check()",
+		"role":"检验"
+		
+	}]
+},{
+	"id":4,
+	"code":"网页",
+	"name":"index.html",
+	"role":"sadf",
+	"path":"col4 data",
+	"iconCls":"icon-page",
+	"state":"closed",
+	"children":[{
+		"id":5,
+		"code":"类",
+		"name":"asd",
+		"iconCls":"icon-class",
+		"role":"asddd"
+	},{
+		"id":6,
+		"code":"javascript",
+		"name":"name12",
+		"role":"address12"
+		
+	}]
+}]

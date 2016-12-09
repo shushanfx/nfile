@@ -1,0 +1,10 @@
+{
+    "port": 18081,
+    "name": "Sogou CDN",
+    "cnName": "文件管理系统",
+    "company": "wap.sogou.com",
+    "description": "文件管理系统",
+    "workspace": {
+        "path": "/search/odin/file_system"
+    }
+}

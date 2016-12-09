@@ -1,0 +1,17 @@
+html
+head
+    block title
+        title #{config.cnName}
+    include common/head
+body.easyui-layout
+    div(region='north', split='true', border='false', style='overflow: hidden; height: 30px;\
+        background: url(/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体')
+      span(style='padding-left:10px; font-size: 16px; ')
+        img(src='/admin/images/blocks.gif', width='20', height='20', align='absmiddle')
+        | &nbsp;&nbsp;#{config.cnName}
+    div(data-options="region:'west',title: '文件夹'",style="width:220px;")
+        div.easyui-tree
+    div(data-options="region:'center'")
+        block content
+            div#tabs.easyui-tabs(style="height: 100%;",fit="true")

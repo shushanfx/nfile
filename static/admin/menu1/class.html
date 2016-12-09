@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>jQuery EasyUI</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+	<script type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script>
+		$(function(){
+			$('#tt').datagrid({
+				url: 'datagrid_data2.json',
+				title: '修改的类',
+				width:600,
+				height:300,
+				fitColumns: true,
+				columns:[[
+					{field:'name',title:'类名',width:80},
+					{field:'role',title:'作用',width:80},
+					{field:'path',title:'路径',width:80},
+					{field:'method',title:'修改方法',width:80},
+					{field:'property',title:'修改属性',width:80}
+			
+				]],
+			});
+		});
+	
+	</script>
+	</head>
+	<body>
+    <table id="tt">
+    </table>
+</body>
+</html>

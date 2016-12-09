@@ -1,0 +1,8 @@
+{"total":28,"rows":[
+	{"name":"user","role":"xx","path":"a/b/c/d/xx","method":"get()","property":"age"},
+	{"name":"book","role":"xx","path":"a/b/c/d/xx"},
+	{"name":"animal","role":"xx","path":"a/b/c/d/xx","property":"name"},
+	{"name":"boy","role":"xx","path":"a/b/c/d/xx"},
+	{"name":"girl","role":"xx","path":"a/b/c/d/xx","method":"get()"}
+	
+]}
