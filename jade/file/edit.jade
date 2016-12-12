@@ -2,6 +2,7 @@ doctype html
 html
 head
     script(src="/js/jquery.min.js",type="text/javascript",charset="utf-8")
+    script(src="/js/utils.js",type="text/javascript",charset="utf-8")
     script(src="/ace/ace.js",type="text/javascript",charset="utf-8")
     script(src="/ace/ext-statusbar.js",type="text/javascript",charset="utf-8")
     script(src="/ace/ext-language_tools.js",type="text/javascript")
@@ -77,31 +78,31 @@ body
         editor.getSession().setUseWrapMode(true);
         editor.getSession().setWrapLimitRange();
         editor.commands.addCommands([{
-                        name: "showSettingsMenu",
-                        bindKey: {win: "Ctrl-s", mac: "Command-s", sender: "editor"},
-                        exec: function(editor) {
-                            var value = editor.getValue();
-                            var oldValue = editor.lastValue;
-                            if(oldValue!=value){
-                                jQuery.post("/fileSave.html", {content: value, ext: "#{ext}", path: "#{pp}", current: "#{current}", "mtime": editor.lastModifiedTime}, function(result){
-                                    Utils.handleResult(result, function(){
-                                        if (result && result.code == "1") {
-                                            editor.lastValue = value;
-                                            editor.lastModifiedTime = result.mtime;
-                                            onHandleNotify("<span style='color: red;'>保存成功～～<span>");
-                                        }
-                                        else {
-                                            onHandleNotify("<span style='color: red;'>" + result.message || "保存失败，请稍后再试～～" + "<span>");
-                                        }
-                                    });
+            name: "showSettingsMenu",
+            bindKey: {win: "Ctrl-s", mac: "Command-s", sender: "editor"},
+            exec: function(editor) {
+                var value = editor.getValue();
+                var oldValue = editor.lastValue;
+                if(oldValue!=value){
+                    jQuery.post("save", {content: value, ext: "#{ext}", path: "#{pp}", "mtime": editor.lastModifiedTime}, function(result){
+                        Utils.handleResult(result, function(){
+                            if (result && result.code == "1") {
+                                editor.lastValue = value;
+                                editor.lastModifiedTime = result.mtime;
+                                onHandleNotify("<span style='color: red;'>保存成功～～<span>");
+                            }
+                            else {
+                                onHandleNotify("<span style='color: red;'>" + result.message || "保存失败，请稍后再试～～" + "<span>");
+                            }
+                        });
 
-                                });
-                            }
-                            else{
-                                onHandleNotify("<span style='color: red;'>保存成功～～<span>");    
-                            }
-                        },
-                        readOnly: true
+                    });
+                }
+                else{
+                    onHandleNotify("<span style='color: red;'>保存成功～～<span>");    
+                }
+            },
+            readOnly: true
         }]);
         editor.commands.addCommands([
             {

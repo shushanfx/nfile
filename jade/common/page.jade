@@ -1,6 +1,8 @@
 html
 head
     include head
+    block title
+        title #{config.cnName}
 body.easyui-layout(fit="true")
     div(data-options="region:'center'")
         block content
