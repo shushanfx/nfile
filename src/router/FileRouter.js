@@ -7,12 +7,13 @@ var JSZip = require('jszip')
 var systemConfig = require('../config.js').getConfig()
 var BaseRouter = require('./BaseRouter.js')
 var RouterUtils = require('../util/RouterUtils.js')
+var FileUtils = require("../util/FileUtils.js").init(systemConfig.workspace.path)
 
 class MyRouter extends BaseRouter {
     init() {
         var me = this
         this.json('/file/add', function(req, res) {
-            var newFileName = getWorkspacePath(req.query.path, req.query.fileName)
+            var newFileName = FileUtils.getPath(req.query.path, req.query.fileName)
             var isDir = req.query.isDir == '1'
             var method = isDir ? 'ensureDir' : 'ensureFile'
             fse[method].call(fse, newFileName, function(err) {
@@ -23,8 +24,8 @@ class MyRouter extends BaseRouter {
                 }
             })
         }).json('/file/rename', function(req, res) {
-            var oldFilePath = getWorkspacePath(req.query.path)
-            var newFilePath = getWorkspacePath(req.query.path, '..', req.query.fileName)
+            var oldFilePath = FileUtils.getPath(req.query.path)
+            var newFilePath = FileUtils.getPath(req.query.path, '..', req.query.fileName)
             if (fs.existsSync(newFilePath)) {
                 RouterUtils.fail(res, '新的文件夹或目录已存在')
             } else {
@@ -39,15 +40,15 @@ class MyRouter extends BaseRouter {
         }).html('/file/edit', function(req, res) {
             var obj = req.query
             if (req.query.path) {
-                var currentPath = getWorkspacePath(req.query.path)
+                var currentPath = FileUtils.getPath(req.query.path)
                 if (fs.existsSync(currentPath)) {
-                    var encoding = getFileEncoding(currentPath)
-                    var content = getFileContent(currentPath, encoding)
+                    var encoding = req.query.encoding || FileUtils.getFileEncoding(currentPath)
+                    var content = FileUtils.getFileContent(currentPath, encoding)
                     var ext = path.extname(currentPath)
                     if (ext) {
                         ext = ext.substring(1)
                     }
-                    obj.mtime = getLastModifiedTime(currentPath)
+                    obj.mtime = FileUtils.getLastModifiedTime(currentPath)
                     obj.encoding = encoding
                     obj.ext = ext
                     obj.content = content
@@ -62,15 +63,15 @@ class MyRouter extends BaseRouter {
         }).html('/file/content', function(req, res) {
             var obj = req.query
             if (req.query.path) {
-                var currentPath = getWorkspacePath(req.query.path)
+                var currentPath = FileUtils.getPath(req.query.path)
                 if (fs.existsSync(currentPath)) {
-                    var encoding = getFileEncoding(currentPath)
-                    var content = getFileContent(currentPath, encoding)
+                    var encoding = req.query.encoding || FileUtils.getFileEncoding(currentPath)
+                    var content = FileUtils.getFileContent(currentPath, encoding)
                     var ext = path.extname(currentPath)
                     if (ext) {
                         ext = ext.substring(1)
                     }
-                    obj.mtime = getLastModifiedTime(currentPath)
+                    obj.mtime = FileUtils.getLastModifiedTime(currentPath)
                     obj.encoding = encoding
                     obj.ext = ext
                     obj.content = content
@@ -85,18 +86,18 @@ class MyRouter extends BaseRouter {
         }).json('/file/save', 'post', function(req, res) {
             var obj = { code: -1, message: '保存失败，请稍后再试～～' }
             if (req.body && req.body.path) {
-                var currentName = getWorkspacePath(req.body.path)
-                var encoding = getFileEncoding(currentName)
-                var currentTime = getLastModifiedTime(currentName)
+                var currentName = FileUtils.getPath(req.body.path)
+                var encoding = req.body.encoding || FileUtils.getFileEncoding(currentName)
+                var currentTime = FileUtils.getLastModifiedTime(currentName)
                 var oldTime = req.body.mtime
                 if (oldTime != currentTime) {
                     obj.code == -1
                     obj.message = '保存失败！当前文档已过期，请刷新页面～～'
                 } else {
-                    grunt.file.write(currentName, req.body.content, { 'encoding': encoding })
+                    FileUtils.writeFileContent(currentName, req.body.content, encoding);
                     obj.code = 1
                     obj.message = 'success'
-                    obj.mtime = getLastModifiedTime(currentName)
+                    obj.mtime = FileUtils.getLastModifiedTime(currentName)
                 }
                 res.json(obj)
             } else {
@@ -105,13 +106,13 @@ class MyRouter extends BaseRouter {
         }).json('/file/delete', function(req, res) {
             var ret = { code: 0 },
                 obj = req.query,
-                currentName = getWorkspacePath(obj.path)
+                currentName = FileUtils.getPath(obj.path)
             if (!fs.existsSync(currentName)) {
                 ret.code = -1
                 ret.message = '无法找到对应文件或目录'
             } else {
                 try {
-                    removeFile(currentName)
+                    FileUtils.removeFile(currentName)
                     ret.code = 1
                 } catch (e) {
                     ret.code = -2
@@ -120,17 +121,17 @@ class MyRouter extends BaseRouter {
             res.json(ret)
         }).html('/file/view', function(req, res) {
             var obj = req.query
-            var currentName = getWorkspacePath(obj.path)
+            var currentName = FileUtils.getPath(obj.path)
             var buffer = fs.readFileSync(currentName)
             if (buffer) {
-                res.writeHead(200, { 'Content-Type': getFileMimeType(obj.path) })
+                res.writeHead(200, { 'Content-Type': FileUtils.getFileMimeType(obj.path) })
                 res.end(buffer, 'binary')
             } else {
-                res.send('error!')
+                RouterUtils.error(res, "获取文件失败！");
             }
         }).json('/file/upload', 'post', function(req, res) {
             var pp = req.query.path
-            var currentName = getWorkspacePath(pp)
+            var currentName = FileUtils.getPath(pp)
             if (req.files && req.files.Filedata) {
                 var oldName = path.join(currentName, req.files.Filedata.name)
                 var newName = path.join(currentName, req.files.Filedata.originalname)
@@ -139,7 +140,7 @@ class MyRouter extends BaseRouter {
             RouterUtils.success(res)
         }).html('/file/download', function(req, res) {
             var obj = req.query
-            var currentName = getWorkspacePath(obj.path)
+            var currentName = FileUtils.getPath(obj.path)
             var listFolder = function(dir, basename, zip) {
                 var list = fs.readdirSync(dir)
                 list.forEach(function(item) {
@@ -182,7 +183,7 @@ class MyRouter extends BaseRouter {
             }
             RouterUtils.success(res, null, {
                 data: [{
-                    text: path.basename(getWorkspacePath(filePath)),
+                    text: path.basename(FileUtils.getPath(filePath)),
                     state: 'open',
                     href: '.',
                     dir: 1,
@@ -195,7 +196,7 @@ class MyRouter extends BaseRouter {
 
 function getFileTree(newPath) {
     var tree = []
-    var pp = getWorkspacePath(newPath)
+    var pp = FileUtils.getPath(newPath)
     if (fs.existsSync(pp)) {
         var files = fs.readdirSync(pp)
         for (var i = 0; i < files.length; i++) {
@@ -224,63 +225,6 @@ function getFileTree(newPath) {
         })
     }
     return tree
-}
-
-function getWorkspacePath() {
-    var tempPath = systemConfig.workspace.path,
-        childPath
-    if (arguments.length > 0) {
-        if (arguments.length > 1) {
-            childPath = path.join.apply(path, arguments)
-        } else {
-            childPath = arguments[0]
-        }
-        tempPath = path.join(tempPath, childPath)
-    }
-    return tempPath
-}
-
-function getFileEncoding(path) {
-    var obj = {
-        'xml': 'GBK',
-        'xsl': 'GBK'
-    }
-    var arr = path.split('.')
-    var ret = obj[arr[arr.length - 1]]
-    if (ret) {
-        return ret
-    } else {
-        return 'UTF-8'
-    }
-}
-
-function getFileContent(path, encoding) {
-    return grunt.file.read(path, {
-        encoding: encoding
-    })
-}
-
-function getLastModifiedTime(path) {
-    var obj = fs.statSync(path)
-    if (obj && obj.mtime) {
-        return obj.mtime.getTime()
-    }
-    return 0
-}
-
-function removeFile(filePath) {
-    var pp = filePath
-    if (fs.statSync(pp).isDirectory()) {
-        var files = fs.readdirSync(pp)
-        for (var i = 0; i < files.length; i++) {
-            var item = files[i],
-                pp2 = path.join(filePath, item)
-            removeFile(pp2)
-        }
-        fs.rmdirSync(pp)
-    } else {
-        fs.unlinkSync(pp)
-    }
 }
 
 module.exports = exports = function(map) {

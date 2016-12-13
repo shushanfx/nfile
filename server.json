@@ -1,6 +1,6 @@
 {
     "port": 18081,
-    "name": "Sogou CDN",
+    "name": "File System",
     "cnName": "文件管理系统",
     "company": "wap.sogou.com",
     "description": "文件管理系统",

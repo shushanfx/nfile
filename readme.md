@@ -1,10 +1,37 @@
 # SogouTool
 ## description
-A tool for sogou user, who use cdn resources like dlweb.sogoucdn.com/ dl.web.sogoucdn.com     
+A file system based on nodejs & easyui. You can use it to edit / view / upload / download file.
 
+## how to run it.
+```bash
+# check out from github 
+git clone "https://github.com/shushanfx/nfile.git"
+# install dependencies and start it.
+npm install && npm start
+```
+> use `npm run dev` for development and make use you have already installed supervisor.
+
+## config
+You can adjust the config as your wish. Config is placed in server.json.
+```javascript
+{
+    "port": 18081,
+    "name": "File System",
+    "cnName": "文件管理系统",
+    "company": "wap.sogou.com",
+    "description": "文件管理系统",
+    "workspace": {
+        "path": "/search/odin/file_system" // file path.
+    }
+}
+```
+
+## preview
+It looks like the follow:    
+![index.png](doc/images/index.png)
+![contextmenu.png](doc/images/contextmenu.png)
 
 ## Thanks
 Thanks to those who made contribution a lot:
-* [longsiliang]("http://open.wap.sogou.com/info/longsiliang") && [mailto]("mailto://longsiliang@sogou-inc.com")
-* [dengjianxin]("http://open.wap.sogou.com/info/dengjianxin") && [mailto]("mailto://dengjianxin@sogou-inc.com")
-* [yuyingying]("http://open.wap.sogou.com/info/yuyingying") && [mailto]("mailto://yuyingying@sogou-inc.com")
+* [shushanfx]
+* [dengjianxin]

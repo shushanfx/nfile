@@ -1,7 +1,7 @@
 {
-  "name": "sogou_tool",
+  "name": "file_system",
   "version": "1.0.0",
-  "author": "dengjianxin",
+  "author": "shushanfx",
   "description": "A tool to manage file system.",
   "scripts": {
     "start": "node index.js",
@@ -28,12 +28,13 @@
     "morgan": "^1.5.2",
     "multer": "^0.1.8",
     "nconf": "^0.7.1",
+    "node-path-extras": "^0.4.1",
     "serve-favicon": "^2.2.0"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://git.sogou-inc.com/dengjianxin/SogouTool.git"
+    "url": "https://github.com/shushanfx/nfile.git"
   },
-  "homepage": "http://git.sogou-inc.com/dengjianxin/SogouTool"
+  "homepage": "https://github.com/shushanfx/nfile"
 }
