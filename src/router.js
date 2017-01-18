@@ -19,10 +19,11 @@ var htmlPath = {
     "/": indexController,
     "/index.html": indexController
 };
-router.register = function(app){
+router.register = function(app) {
     var key, value;
     require("./router/FileRouter.js")(htmlPath);
-    app.use(function(req, res, next){
+    require("./router/FileView.js")(htmlPath);
+    app.use(function(req, res, next) {
         var obj = {
             config: serverConfig
         };
@@ -37,57 +38,56 @@ router.register = function(app){
         var setting = {
             theme: "default"
         };
-        if(req.cookies){
+        if (req.cookies) {
             setting = merge(true, setting, getSettingCookie(req.cookies));
             obj.cookies = req.cookies;
         }
         obj.setting = setting;
-        if(res.locals){
+        if (res.locals) {
             res.locals = merge(res.locals, obj);
         }
         next();
     });
-	for(key in htmlPath){
+    for (key in htmlPath) {
         value = htmlPath[key];
-        if(typeof(value)=="function"){
+        if (typeof(value) == "function") {
             app.get(key, value);
-        }
-        else if(typeof(value)=="object" && typeof(value.handler)){
-            if(value.method=="post"){
+        } else if (typeof(value) == "object" && typeof(value.handler)) {
+            if (value.method == "post") {
                 app.post(key, value.handler);
-            }
-            else{
+            } else if (value.method === "all") {
+                app.all(key, value.handler);
+            } else {
                 app.get(key, value.handler);
             }
         }
     }
-    app.use(function(err, req, res, next){
+    app.use(function(err, req, res, next) {
         var type = null;
-        if(err && (err instanceof Error)){
+        if (err && (err instanceof Error)) {
             console.error(err);
-            if(type && type.indexOf("json")){
+            if (type && type.indexOf("json")) {
                 res.json({
                     "code": -1,
                     "message": "系统发生未处理的异常！"
                 });
+            } else {
+                res.render("error", { message: "系统发生未处理的异常！" });
             }
-            else{
-                res.render("error", {message: "系统发生未处理的异常！"});
-            }
-        }
-        else{
+        } else {
             next();
         }
     });
 };
-function indexController(req, res){
+
+function indexController(req, res) {
     res.render("index");
 }
 // 获得默认的cookie
-function getSettingCookie(cookies){
+function getSettingCookie(cookies) {
     var obj = {};
-    for(var key in cookies){
-        if(key && key.indexOf("setting.")===0){
+    for (var key in cookies) {
+        if (key && key.indexOf("setting.") === 0) {
             obj[key.substring(8)] = decodeURIComponent(cookies[key]);
         }
     }

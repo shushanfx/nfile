@@ -2,35 +2,39 @@ var path = require("path");
 var pathExtra = require("node-path-extras");
 var grunt = require("grunt");
 var fs = require("fs");
+var mime = require("mime");
+
 
 class FileUtils {
-    init(root){
+    init(root) {
         var finalPath = root;
-        if(!path.isAbsolute(root)){
+        if (!path.isAbsolute(root)) {
             finalPath = path.join(process.cwd(), root);
         }
         this.root = root;
         return this;
     }
-    getPath(){
-        var tempPath = this.root,
-            childPath;
+    getPath() {
+        var tempPath = this.root;
         var i, item;
         if (arguments.length > 0) {
-            if (arguments.length > 1) {
-                childPath = path.join.apply(path, arguments);
-            } else {
-                childPath = arguments[0];
+            for (i = 0; i < arguments.length; i++) {
+                item = arguments[i];
+                if (typeof(item) === "string") {
+                    if (item === ".") {
+                        continue;
+                    }
+                    tempPath = path.join(tempPath, item);
+                }
             }
-            tempPath = path.join(tempPath, childPath);
         }
-        if(tempPath !== this.root 
-            && !pathExtra.contains(this.root, tempPath)){
+        if (tempPath !== this.root &&
+            !pathExtra.contains(this.root, tempPath)) {
             return this.root;
         }
         return tempPath;
     }
-    getFileEncoding(filePath){
+    getFileEncoding(filePath) {
         var obj = {
             'xml': 'GBK',
             'xsl': 'GBK'
@@ -43,25 +47,29 @@ class FileUtils {
             return 'UTF-8'
         }
     }
-    getFileContent(filePath, encoding){
+    getFileContent(filePath, encoding) {
         return grunt.file.read(filePath, {
             encoding: encoding
         });
     }
-    getLastModifiedTime(filePath){
+    getLastModifiedTime(filePath) {
         var obj = fs.statSync(filePath)
         if (obj && obj.mtime) {
             return obj.mtime.getTime();
         }
         return 0;
     }
-    writeFileContent(filePath, content, encoding){
+    writeFileContent(filePath, content, encoding) {
         return grunt.file.write(filePath, content, { 'encoding': encoding });
     }
-    getFileMimeType(filePath){
-
+    getFileMimeType(filePath) {
+        if (!path.isAbsolute(filePath)) {
+            return mime.lookup(this.getPath(filePath));
+        } else {
+            return mime.lookup(filePath);
+        }
     }
-    removeFile(filePath){
+    removeFile(filePath) {
         var me = this;
         var pp = filePath;
         if (fs.statSync(pp).isDirectory()) {

@@ -2,9 +2,10 @@
     "port": 18081,
     "name": "File System",
     "cnName": "文件管理系统",
-    "company": "wap.sogou.com",
+    "company": "file.shushanfx.com",
     "description": "文件管理系统",
     "workspace": {
-        "path": "/search/odin/file_system"
+        "path": "/shushanfx/node/data",
+        "pwd": "/shushanfx/node/nfile"
     }
 }

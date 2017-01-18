@@ -33,6 +33,13 @@
                             if (item.id == "rightMenuAddFile" || item.id == 'rightMenuAddDir') {
                                 var isDir = (item.id == 'rightMenuAddFile' ? 0 : 1);
                                 var tips = (isDir ? '请输入新的文件夹名' : '请输入新的文件名');
+                                var getNewPath = function(old, newName) {
+                                    if (old === "." || !old) {
+                                        return newName;
+                                    }
+                                    return old + "/" + newName;
+                                }
+
                                 $.messager.prompt('新增', tips, function(r) {
                                     if ($.trim(r)) {
                                         $.get("file/add", { path: node.href, fileName: r, isDir: isDir }, function(result) {
@@ -42,7 +49,7 @@
                                                         parent: node.target,
                                                         data: [{
                                                             text: $.trim(r),
-                                                            href: node.href + '\\' + $.trim(r),
+                                                            href: getNewPath(node.href, $.trim(r)),
                                                             dir: isDir
                                                         }]
                                                     }
@@ -100,12 +107,12 @@
                                     }
                                 })
                             } else if (item.id == 'rightMenuView') {
-                                window.top.grunt.addTab(node.text, '', '/view/' + node.href.replace(/\\/gi, "/"), {
+                                FileSystem.addTab("view-" + node.text, '', '/file/view/' + node.href.replace(/\\/gi, "/"), {
                                     refresh: true,
                                     scroll: true
                                 })
                             } else if (item.id == 'rightMenuTestNew') {
-                                window.open('/view/' + node.href.replace(/\\/gi, "/"));
+                                window.open('file/view/' + node.href.replace(/\\/gi, "/"));
                             } else if (item.id === "rightMenuUpload") {
                                 onHandleFileUpload(node.href);
                             } else if (item.id === "rightMenuDownload") {
@@ -207,7 +214,7 @@
             }
         });
 
-        function onHandleTab(title, icon, url) {
+        function onHandleTab(title, icon, url, options) {
             var $tabs = $("#divFileTab");
             if ($tabs.tabs('getTab', title)) {
                 $tabs.tabs('select', title);
@@ -302,3 +309,58 @@
 
         onHandleTree();
     });
+
+
+
+    (function(w) {
+        w.FileSystem = {
+            refreshTab: function(title) {
+                var $tabs = $("#divFileTab");
+                var index = title;
+                if (!title) {
+                    index = $tabs.tabs("getSelected");
+                }
+                var tab = $tabs.tabs("getTab", index);
+                var frame = tab.find("iframe");
+                if (frame && frame.length > 0) {
+                    frame.get(0).contentWindow.location.reload(true);
+                }
+            },
+            addTab: function(title, icon, url, options) {
+                var $tabs = $("#divFileTab");
+                var op = options || {};
+                if ($tabs.tabs('getTab', title)) {
+                    $tabs.tabs('select', title);
+                    if (op.refresh) {
+                        this.refreshTab(title);
+                    }
+                } else {
+                    $tabs.tabs('add', {
+                        title: title,
+                        iconCls: 'tree-file ' + icon,
+                        content: "<iframe height='100%' width='100%' border ='0' frameBorder='0' scrolling='{scroll}' src='{url}' ></iframe>".replace("{url}", url).replace("{scroll}", op.scroll ? "yes" : "no"),
+                        selected: true,
+                        closable: true,
+                        fit: true
+                    });
+                }
+            },
+            closeTab: function(title) {
+                var $tabs = $("#divFileTab");
+                var index = title,
+                    obj;
+                if (!title) {
+                    obj = $tabs.tabs('getSelected');
+                    index = $tabs.tabs('getTabIndex', obj);
+                }
+                $tabs.tabs("close", index);
+            },
+            closeAllTab: function() {
+                var $tabs = $("#divFileTab");
+                var tabs = $tabs.tabs("tabs");
+                for (var i = tabs.length - 1; i >= 0; i--) {
+                    $tabs.tabs("close", i);
+                }
+            }
+        }
+    })(window);
