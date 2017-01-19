@@ -95,7 +95,7 @@ class RouterUtils{
         if(message){
             obj.message = message;
         }
-        res.render("error", message);
+        res.render("error", obj);
     }
 }
 

@@ -19,6 +19,10 @@ class MyRouter extends BaseRouter {
             if (!uri) {
                 uri = "";
             }
+            if(uri){
+                // 对uri进行处理， 将编码url转为中文
+                uri = decodeURIComponent(uri);
+            }
             if (obj.path) {
                 uri = FileUtils.getPath(uri, obj.path);
             } else {
@@ -29,6 +33,7 @@ class MyRouter extends BaseRouter {
             if(ext === "md"){
                 MarkdownUtils.parse2Html(currentName, function(err, obj){
                     if(err){
+                        console.dir(err);
                         RouterUtils.error(res, "获取文件失败！");    
                     }
                     else{
