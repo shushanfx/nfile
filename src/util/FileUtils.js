@@ -84,6 +84,21 @@ class FileUtils {
             fs.unlinkSync(pp);
         }
     }
+    getExtName(filePath){
+        var ext = "", temp;
+        var url = filePath;
+        if(filePath){
+            if(url.indexOf("?")!== -1){
+                temp = url.split("?");
+                url = temp[0];
+            }
+            if(url){
+                temp = url.split(".");
+                ext = temp[temp.length - 1];
+            }  
+        }
+        return ext;
+    }
 }
 
 module.exports = exports = new FileUtils();

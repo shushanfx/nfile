@@ -1,10 +1,10 @@
 var fs = require('fs')
 var fse = require('fs-extra')
 
-var systemConfig = require('../config.js').getConfig()
 var BaseRouter = require('./BaseRouter.js')
 var RouterUtils = require('../util/RouterUtils.js')
-var FileUtils = require("../util/FileUtils.js").init(systemConfig.workspace.path)
+var FileUtils = require("../util/FileUtils.js");
+var MarkdownUtils = require("../util/MarkdownUtils.js");
 
 class MyRouter extends BaseRouter {
     init() {
@@ -25,12 +25,25 @@ class MyRouter extends BaseRouter {
                 uri = FileUtils.getPath(uri);
             }
             var currentName = uri;
-            var buffer = fs.readFileSync(currentName)
-            if (buffer) {
-                res.writeHead(200, { 'Content-Type': FileUtils.getFileMimeType(currentName) })
-                res.end(buffer, 'binary')
-            } else {
-                RouterUtils.error(res, "获取文件失败！");
+            var ext = FileUtils.getExtName(currentName);
+            if(ext === "md"){
+                MarkdownUtils.parse2Html(currentName, function(err, obj){
+                    if(err){
+                        RouterUtils.error(res, "获取文件失败！");    
+                    }
+                    else{
+                        res.render("readme", obj);
+                    }
+                });  
+            }
+            else{
+                var buffer = fs.readFileSync(currentName)
+                if (buffer) {
+                    res.writeHead(200, { 'Content-Type': FileUtils.getFileMimeType(currentName) })
+                    res.end(buffer, 'binary')
+                } else {
+                    RouterUtils.error(res, "获取文件失败！");
+                }
             }
         });
     }

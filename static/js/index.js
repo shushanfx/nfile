@@ -163,6 +163,7 @@
                         $rightMenu.menu('enableItem', '#rightMenuTestNew');
                         $rightMenu.menu('enableItem', '#rightMenuRefactor');
                     } else if (node.text.indexOf('.md') != -1) {
+                        $rightMenu.menu('enableItem', '#rightMenuTestNew');
                         $rightMenu.menu('enableItem', '#rightMenuView');
                     }
                 }
