@@ -31,6 +31,15 @@ router.register = function(app) {
                 return false;
             }
         });
+        Object.defineProperty(res, "isIE", {
+            get: function(){
+                var header = req.header("user-agent");
+                if(header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1){
+                    return true;
+                }
+                return false;
+            }
+        });
 
         console.info(req.isIE);
         next();
