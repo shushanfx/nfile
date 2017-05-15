@@ -25,7 +25,7 @@ router.register = function(app) {
         Object.defineProperty(req, "isIE", {
             get: function(){
                 var header = req.header("user-agent");
-                if(header && header.toLowerCase().indexOf("msie") != -1){
+                if(header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1){
                     return true;
                 }
                 return false;
