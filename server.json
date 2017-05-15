@@ -7,5 +7,8 @@
     "workspace": {
         "path": "/shushanfx/node/data",
         "pwd": "/shushanfx/node/nfile"
+    }, 
+    "logger": {
+        "format": ":remote-addr - :remote-user [:date[iso]] \":method :url HTTP/:http-version\" :status :res[content-length] \":referrer\" \":user-agent\""
     }
 }

@@ -137,7 +137,15 @@ class MyRouter extends BaseRouter {
                 var newName = path.join(currentName, req.files.Filedata.originalname)
                 grunt.file.copy(req.files.Filedata.path, path.join(currentName, req.files.Filedata.originalname))
             }
-            RouterUtils.success(res)
+            if(req.isIE){
+                res.set({
+                    'Content-Type': 'text/plain'
+                });
+                res.send(JSON.parse(res));
+            }
+            else{
+                RouterUtils.success(res)
+            }
         }).html('/file/download', function(req, res) {
             var obj = req.query
             var currentName = FileUtils.getPath(obj.path)

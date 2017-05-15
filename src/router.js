@@ -21,6 +21,21 @@ var htmlPath = {
 };
 router.register = function(app) {
     var key, value;
+    app.use(function(req, res, next){
+        Object.defineProperty(req, "isIE", {
+            get: function(){
+                var header = req.header("user-agent");
+                if(header && header.toLowerCase().indexOf("msie") != -1){
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        console.info(req.isIE);
+        next();
+    })
+
     require("./router/FileRouter.js")(htmlPath);
     require("./router/FileView.js")(htmlPath);
     app.use(function(req, res, next) {
