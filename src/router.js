@@ -40,8 +40,6 @@ router.register = function(app) {
                 return false;
             }
         });
-
-        console.info(req.isIE);
         next();
     })
 

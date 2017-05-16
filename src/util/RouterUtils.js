@@ -58,7 +58,15 @@ class RouterUtils{
         if(message){
             obj.message = message;
         }
-        res.json(obj);
+        if(res.isIE){
+            res.set({
+                'Content-Type': 'text/plain'
+            });
+            res.send(JSON.parse(obj));
+        }
+        else{
+            res.json(obj);
+        }
     }
     /**
      * 返回一个参数异常的json串
@@ -70,7 +78,15 @@ class RouterUtils{
         if(message){
             obj.message = message;
         }
-        res.json(obj);
+        if(res.isIE){
+            res.set({
+                'Content-Type': 'text/plain'
+            });
+            res.send(JSON.parse(obj));
+        }
+        else{
+            res.json(obj);
+        }
     }
     /**
      * 返回一个操作成功的json串
@@ -88,7 +104,15 @@ class RouterUtils{
                 obj[key] = data[key];
             });
         }
-        res.json(obj);
+        if(res.isIE){
+            res.set({
+                'Content-Type': 'text/plain'
+            });
+            res.send(JSON.parse(obj));
+        }
+        else{
+            res.json(obj);
+        }
     }
     static error(res, message){
         var obj = merge(true, codePath["ILLEGAL_ARGUMENT"]);
