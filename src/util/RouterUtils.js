@@ -62,7 +62,7 @@ class RouterUtils{
             res.set({
                 'Content-Type': 'text/plain'
             });
-            res.send(JSON.parse(obj));
+            res.send(JSON.stringify(obj));
         }
         else{
             res.json(obj);
@@ -82,7 +82,7 @@ class RouterUtils{
             res.set({
                 'Content-Type': 'text/plain'
             });
-            res.send(JSON.parse(obj));
+            res.send(JSON.stringify(obj));
         }
         else{
             res.json(obj);
@@ -108,7 +108,7 @@ class RouterUtils{
             res.set({
                 'Content-Type': 'text/plain'
             });
-            res.send(JSON.parse(obj));
+            res.send(JSON.stringify(obj));
         }
         else{
             res.json(obj);
