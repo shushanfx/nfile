@@ -1,5 +1,5 @@
     function onHandleTree() {
-        $.get("file/tree", {
+        $.getJSON("file/tree", {
             path: "."
         }, function(result) {
             if (result && result.code === 1) {
@@ -9,6 +9,9 @@
     }
 
     $(function() {
+        $.ajaxSetup({
+            cache: false
+        })
         $("#divFileTree").tree({
             onClick: function(node) {
                 if (node.dir == -1) {
@@ -42,7 +45,7 @@
 
                                 $.messager.prompt('新增', tips, function(r) {
                                     if ($.trim(r)) {
-                                        $.get("file/add", { path: node.href, fileName: r, isDir: isDir }, function(result) {
+                                        $.getJSON("file/add", { path: node.href, fileName: r, isDir: isDir }, function(result) {
                                             Utils.handleResult(result, function() {
                                                 if (result && result.code == 1) {
                                                     var obj = {
@@ -68,7 +71,7 @@
                                 $.messager.prompt('重命名', '重命名【' + node.text + '】：', function(r) {
                                     if ($.trim(r) && $.trim(r) != node.text) {
                                         var value = $.trim(r);
-                                        $.get("file/rename", {
+                                        $.getJSON("file/rename", {
                                             path: node.href,
                                             fileName: value
                                         }, function(result) {
@@ -92,7 +95,7 @@
                             } else if (item.id == "rightMenuRemove") {
                                 $.messager.confirm("删除", '你确认要删除文件【' + node.text + '】？', function(r) {
                                     if (r) {
-                                        $.get("file/delete", {
+                                        $.getJSON("file/delete", {
                                             path: node.href,
                                             "_": +new Date()
                                         }, function(result) {
@@ -294,6 +297,7 @@
         function onHandleSvnInfo(path) {
             $.ajax({
                 url: "doGetSvnInfo.html?current=#{current}",
+                dataType: "json",
                 data: { path: path },
                 async: false,
                 timeout: 8000,

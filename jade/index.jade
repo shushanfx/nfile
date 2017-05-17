@@ -1,21 +1,24 @@
+doctype html
 html
-head
-    block title
-        title #{config.cnName}
-    include common/head
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
+        block title
+            title #{config.cnName}
+        include common/head
 
-    link(rel='stylesheet',type='text/css',href='/uploadifive/css/uploadifive.css')
-    script(type='text/javascript',src='/uploadifive/js/jquery.uploadifive.min.js')
-    script(type='text/javascript',src='/js/index.js?v=1')
-body.easyui-layout
-    div(region='north', split='true', border='false', style='overflow: hidden; height: 30px;\
-        background: url(/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
-        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体')
-      span(style='padding-left:10px; font-size: 16px; ')
-        img(src='/admin/images/blocks.gif', width='20', height='20', align='absmiddle')
-        | &nbsp;&nbsp;#{config.cnName}
-    div(data-options="region:'west',title: '文件夹',tools: [{iconCls: 'icon-reload', handler: function(){ onHandleTree();}}]",style="width:220px;")
-        div#divFileTree.easyui-tree
-    div(data-options="region:'center'")
-        block content
-            div#divFileTab.easyui-tabs(style="height: 100%;",fit="true")
+        link(rel='stylesheet',type='text/css',href='/uploadifive/css/uploadifive.css')
+        script(type='text/javascript',src='/uploadifive/js/jquery.uploadifive.min.js')
+        script(type='text/javascript',src='/js/index.js?v=1')
+    body.easyui-layout
+        div(region='north', split='true', border='false', style='overflow: hidden; height: 30px;\
+            background: url(/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
+            line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体')
+        span(style='padding-left:10px; font-size: 16px; ')
+            img(src='/admin/images/blocks.gif', width='20', height='20', align='absmiddle')
+            | &nbsp;&nbsp;#{config.cnName}
+        div(data-options="region:'west',title: '文件夹',tools: [{iconCls: 'icon-reload', handler: function(){ onHandleTree();}}]",style="width:220px;")
+            div#divFileTree.easyui-tree
+        div(data-options="region:'center'")
+            block content
+                div#divFileTab.easyui-tabs(style="height: 100%;",fit="true")

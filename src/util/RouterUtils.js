@@ -60,7 +60,7 @@ class RouterUtils{
         }
         if(res.isIE){
             res.set({
-                'Content-Type': 'text/plain'
+                'Content-Type': 'text/html; charset=utf-8'
             });
             res.send(JSON.stringify(obj));
         }
@@ -80,7 +80,7 @@ class RouterUtils{
         }
         if(res.isIE){
             res.set({
-                'Content-Type': 'text/plain'
+                'Content-Type': 'text/html; charset=utf-8'
             });
             res.send(JSON.stringify(obj));
         }
@@ -106,7 +106,7 @@ class RouterUtils{
         }
         if(res.isIE){
             res.set({
-                'Content-Type': 'text/plain'
+                'Content-Type': 'text/html; charset=utf-8'
             });
             res.send(JSON.stringify(obj));
         }
