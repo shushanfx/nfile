@@ -52,3 +52,6 @@ docker run --name shushanfx-node -v /shushanfx/node/data:/shushanfx/node/data -v
 >* Amount two direcories:/shushanfx/node/data to /shushanfx/node/data(in docker container), /shushanfx/node/nfile to /usr/src/app(in docker container).
 >* Parameter -d means run in background
 >* The command `sh -c "npm install && npm start"`, which execute two commands in one time, you must use `sh -c `, or the second command will execute on the host machine.
+
+## Change logs
+Please refer to [change logs](doc/changelog.md)
