@@ -1,0 +1,12 @@
+{
+    "online": {
+        "js": {
+            "/js/jquery.min.js": "https://code.jquery.com/jquery-2.2.4.min.js",
+            "/bootstrap/js/bootstrap.min.js": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+            "/marked/js/marked.min.js": "https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"
+        },
+        "css": {
+            "/bootstrap/css/bootsrap.min.css": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        }
+    }   
+}

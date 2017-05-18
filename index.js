@@ -31,10 +31,13 @@ app.use(cookieParser());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(multer());
+
+if('product' == app.get('env')){
+  app.set("views", path.join(__dirname, 'jade_dist'));
+  app.use(express.static(path.join(__dirname, 'static_dist')))
+}
 app.use(express.static(path.join(__dirname, 'static')));
 
-
-// development only
 if ('development' == app.get('env')) {
   app.use(errorHandler());
 }

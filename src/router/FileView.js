@@ -37,6 +37,8 @@ class MyRouter extends BaseRouter {
                         RouterUtils.error(res, "获取文件失败！");    
                     }
                     else{
+                        let isRealtime = req.query.realtime == "1"
+                        obj.isRealtime = isRealtime;
                         res.render("readme", obj);
                     }
                 });  
