@@ -139,43 +139,12 @@ class MyRouter extends BaseRouter {
             }
             RouterUtils.success(res);
         }).html('/file/download', function(req, res) {
-            var obj = req.query
-            var currentName = FileUtils.getPath(obj.path)
-            var listFolder = function(dir, basename, zip) {
-                var list = fs.readdirSync(dir)
-                list.forEach(function(item) {
-                    var newPath = path.join(dir, item)
-                    var newBaseName = path.join(basename, item)
-                    var st = fs.statSync(newPath)
-                    if (st.isFile()) {
-                        zip.file(newBaseName, fs.readFileSync(newPath))
-                    } else if (st.isDirectory()) {
-                        listFolder(newPath, newBaseName, zip)
-                    }
-                })
+            var obj = req.query;
+            if (obj && obj.path) {
+                FileUtils.download(obj.path, res);
+            } else {
+                RouterUtils.error(res, "下载文件失败！")
             }
-            fs.stat(currentName, function(err, stats) {
-                if (err) {
-                    RouterUtils.error(res, '获取文件失败！')
-                } else {
-                    if (stats.isDirectory()) {
-                        var basename = path.basename(currentName)
-                        res.attachment(basename + '.zip')
-                        var zip = new JSZip()
-                        zip.folder(basename)
-                        listFolder(currentName, basename, zip)
-                        zip.generateNodeStream({ streamFile: true })
-                            .pipe(res)
-                            .on('finish', function() {
-                                res.end()
-                            })
-                    } else if (stats.isFile()) {
-                        res.download(currentName)
-                    } else {
-                        RouterUtils.error(res, '不支持的文件格式！')
-                    }
-                }
-            })
         }).json('/file/tree', function(req, res) {
             var filePath = req.query.path
             if (!filePath) {

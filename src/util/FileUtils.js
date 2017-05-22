@@ -2,10 +2,20 @@ var path = require("path");
 var pathExtra = require("node-path-extras");
 var grunt = require("grunt");
 var fs = require("fs");
+var fse = require("fs-extra");
 var mime = require("mime");
+var JSZip = require('jszip');
+var Cache = require("memory-cache");
+
+
+var RouterUtils = require("./RouterUtils")
 
 
 class FileUtils {
+    /**
+     * Init a file system.
+     * @param {*} root the root directory of file system.
+     */
     init(root) {
         var finalPath = root;
         if (!path.isAbsolute(root)) {
@@ -22,6 +32,9 @@ class FileUtils {
                 item = arguments[i];
                 if (typeof(item) === "string") {
                     if (item === ".") {
+                        continue;
+                    } else if (path.isAbsolute(item)) {
+                        tempPath = item;
                         continue;
                     }
                     tempPath = path.join(tempPath, item);
@@ -84,20 +97,117 @@ class FileUtils {
             fs.unlinkSync(pp);
         }
     }
-    getExtName(filePath){
-        var ext = "", temp;
+    getExtName(filePath) {
+        var ext = "",
+            temp;
         var url = filePath;
-        if(filePath){
-            if(url.indexOf("?")!== -1){
+        if (filePath) {
+            if (url.indexOf("?") !== -1) {
                 temp = url.split("?");
                 url = temp[0];
             }
-            if(url){
+            if (url) {
                 temp = url.split(".");
                 ext = temp[temp.length - 1];
-            }  
+            }
         }
         return ext;
+    }
+    download(filePath, res) {
+            var ext = "",
+                tmp = null;
+            if (filePath) {
+                var currentName = this.getPath(filePath);
+                var listFolder = function(dir, basename, zip) {
+                    var list = fs.readdirSync(dir)
+                    list.forEach(function(item) {
+                        var newPath = path.join(dir, item)
+                        var newBaseName = path.join(basename, item)
+                        var st = fs.statSync(newPath)
+                        if (st.isFile()) {
+                            zip.file(newBaseName, fs.readFileSync(newPath))
+                        } else if (st.isDirectory()) {
+                            listFolder(newPath, newBaseName, zip)
+                        }
+                    })
+                }
+                fs.stat(currentName, function(err, stats) {
+                    if (err) {
+                        RouterUtils.error(res, '获取文件失败！')
+                    } else {
+                        if (stats.isDirectory()) {
+                            var basename = path.basename(currentName)
+                            res.attachment(basename + '.zip')
+                            var zip = new JSZip()
+                            zip.folder(basename)
+                            listFolder(currentName, basename, zip)
+                            zip.generateNodeStream({ streamFile: true })
+                                .pipe(res)
+                                .on('finish', function() {
+                                    res.end();
+                                });
+                        } else if (stats.isFile()) {
+                            res.download(currentName)
+                        } else {
+                            RouterUtils.error(res, '不支持的文件格式！')
+                        }
+                    }
+                });
+            }
+        }
+        /**
+         * Get a list for file system.
+         * @param {*} filePath A file path, dot(.) stands for root directory.
+         * @param {* Function} filter a file path, if it is null, return all file. 
+         *  function(obj)
+         *  only return true can take the file into consideration.
+         * @param {*} callback, An object array. The object is like
+         *  {
+         *      name: "the file name",
+         *      ext: "the ext of the file"
+         *      fsPath: "the filepath in file system."
+         *      abPath: "the absolute path of the file"
+         *      stats: "the stats object of the file."
+         *  }
+         */
+    listFileSync(filePath, filter) {
+        var me = this;
+        var list = [];
+        var realPath = this.getPath(filePath);
+        var readDir = function(obj) {
+            var retList = [];
+            var files = fs.readdirSync(obj.abPath);
+            files && files.length > 0 && files.forEach(item => {
+                var goodPath = path.join(obj.abPath, item);
+                var fsPath = path.join(obj.fsPath, item);
+                var fileObject = {
+                    name: item,
+                    abPath: goodPath,
+                    fsPath: fsPath
+                };
+                var stats = fs.statSync(goodPath);
+                if (stats.isDirectory()) {
+                    var myList = readDir(fileObject);
+                    if (myList && myList.length > 0) {
+                        retList.splice(retList.length - 1, 0, myList);
+                    }
+                } else {
+                    fileObject.stats = stats;
+                    fileObject.ext = me.getExtName(fileObject.fsPath);
+
+                    if (typeof filter === "function") {
+                        filter.call(me, fileObject) && retList.push(fileObject);
+                    } else {
+                        retList.push(fileObject);
+                    }
+                }
+            });
+            return retList;
+        }
+        return readDir({
+            abPath: this.getPath(filePath),
+            fsPath: filePath
+        });
     }
 }
 

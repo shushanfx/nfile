@@ -9,7 +9,7 @@ var codePath = {
         code: -101,
         message: "用户名密码错误！"
     },
-    "UNCOMPLETED_USERNAME":{
+    "UNCOMPLETED_USERNAME": {
         code: -102,
         message: "请输入完整的用户名/密码！"
     },
@@ -17,9 +17,9 @@ var codePath = {
         code: -103,
         message: "当前用户未注册！"
     },
-    "NOT_ADMIN" : {
-        code : -104,
-        message : "没有操作权限，请联系管理员！" 
+    "NOT_ADMIN": {
+        code: -104,
+        message: "没有操作权限，请联系管理员！"
     },
     "ERROR": {
         code: -512,
@@ -29,7 +29,7 @@ var codePath = {
         code: -1,
         message: "操作失败！"
     },
-    "ILLEGAL_ARGUMENT" : {
+    "ILLEGAL_ARGUMENT": {
         code: -2,
         message: "参数异常"
     },
@@ -47,76 +47,78 @@ var codePath = {
     }
 };
 
-class RouterUtils{
+class RouterUtils {
     /**
      * 返回一个错误的json串
      * @param res response对象，必填
      * @param message 错误信息，选填
      */
-    static fail(res, message){
-        var obj = merge(true, codePath["FAIL"]);
-        if(message){
-            obj.message = message;
+    static fail(res, message) {
+            var obj = merge(true, codePath["FAIL"]);
+            if (message) {
+                obj.message = message;
+            }
+            if (res.isIE) {
+                res.set({
+                    'Content-Type': 'text/html; charset=utf-8'
+                });
+                res.send(JSON.stringify(obj));
+            } else {
+                res.json(obj);
+            }
         }
-        if(res.isIE){
-            res.set({
-                'Content-Type': 'text/html; charset=utf-8'
-            });
-            res.send(JSON.stringify(obj));
+        /**
+         * 返回一个参数异常的json串
+         * @param res response对象，必填
+         * @param message 错误信息，选填
+         */
+    static illegal(res, message) {
+            var obj = merge(true, codePath["ILLEGAL_ARGUMENT"]);
+            if (message) {
+                obj.message = message;
+            }
+            if (res.isIE) {
+                res.set({
+                    'Content-Type': 'text/html; charset=utf-8'
+                });
+                res.send(JSON.stringify(obj));
+            } else {
+                res.json(obj);
+            }
         }
-        else{
-            res.json(obj);
+        /**
+         * 返回一个操作成功的json串
+         * @param res response对象，必填
+         * @param message 提示信息，选填
+         * @param data json串的额外信息，一个对象，选填
+         */
+    static success(res, message, data) {
+            var obj = merge(true, codePath["SUCCESS"]);
+            if (message) {
+                obj.message = message;
+            }
+            if (data) {
+                Object.keys(data).forEach(function(key) {
+                    obj[key] = data[key];
+                });
+            }
+            if (res.isIE) {
+                res.set({
+                    'Content-Type': 'text/html; charset=utf-8'
+                });
+                res.send(JSON.stringify(obj));
+            } else {
+                res.json(obj);
+            }
         }
-    }
-    /**
-     * 返回一个参数异常的json串
-     * @param res response对象，必填
-     * @param message 错误信息，选填
-     */
-    static illegal(res, message){
+        /**
+         * Return a error html page, render error page to res stream with an object(optional). 
+         * @param {*Response} res 
+         * @param {*Object Option} message 
+         */
+    static error(res, message) {
         var obj = merge(true, codePath["ILLEGAL_ARGUMENT"]);
-        if(message){
-            obj.message = message;
-        }
-        if(res.isIE){
-            res.set({
-                'Content-Type': 'text/html; charset=utf-8'
-            });
-            res.send(JSON.stringify(obj));
-        }
-        else{
-            res.json(obj);
-        }
-    }
-    /**
-     * 返回一个操作成功的json串
-     * @param res response对象，必填
-     * @param message 提示信息，选填
-     * @param data json串的额外信息，一个对象，选填
-     */
-    static success(res, message, data){
-        var obj = merge(true, codePath["SUCCESS"]);
-        if(message){
-            obj.message = message;
-        }
-        if(data){
-            Object.keys(data).forEach(function(key){
-                obj[key] = data[key];
-            });
-        }
-        if(res.isIE){
-            res.set({
-                'Content-Type': 'text/html; charset=utf-8'
-            });
-            res.send(JSON.stringify(obj));
-        }
-        else{
-            res.json(obj);
-        }
-    }
-    static error(res, message){
-        var obj = merge(true, codePath["ILLEGAL_ARGUMENT"]);
-        if(message){
+        if (message) {
             obj.message = message;
         }
         res.render("error", obj);

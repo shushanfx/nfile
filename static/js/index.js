@@ -18,6 +18,13 @@
                     onHandleTab(node.text, node.iconCls || "", node.href);
                 } else if (node.dir == 0) {
                     var url = "file/edit?path=" + window.encodeURIComponent(node.href);
+                    if (node.href.indexOf(".ppt") !== -1 ||
+                        node.href.indexOf("pptx") !== -1 ||
+                        node.href.indexOf("doc") !== -1 ||
+                        node.href.indexOf("docx") !== -1) {
+                        window.open('file/view/' + node.href.replace(/\\/gi, "/"));
+                        return true;
+                    }
                     if (node.href.indexOf(".gif") !== -1 ||
                         node.href.indexOf(".png") !== -1 ||
                         node.href.indexOf(".jpg") !== -1) {
