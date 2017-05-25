@@ -1,0 +1,81 @@
+doctype html
+html(lang='zh-CN')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		title #{title}
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='shortcut icon', href='/favicon.ico')
+		link(rel='stylesheet', href='//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
+		link(rel='stylesheet', href='//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css')
+		link(rel='stylesheet', href='/css/file-list.css')
+	body.home-template
+		header.main-header(style='background-image: url(/images/fcb3879e14429d75833a461572e64.jpg)')
+			.container
+				.row
+					.col-sm-12
+						a.branding(href='.', title='文件共享平台')
+							img(src='/images/4f5566c1f7bc28b3f7ac1fada8abe.png', alt='Ghost 开源博客平台')
+		nav.main-navigation
+			.container
+				.row
+					.col-sm-12
+						.navbar-header
+							span.nav-toggle-button.collapsed(data-toggle='collapse', data-target='#main-menu')
+								span.sr-only Toggle navigation
+								i.fa.fa-bars
+						#main-menu.collapse.navbar-collapse
+							ul.menu
+								li.nav-current(role='presentation')
+									a(href='/file/list') 首页
+								li(role='presentation')
+									a(href='/') 编辑
+								li(role='presentation')
+									a(href='/about/') 关于
+		section.content-wrap
+			.container
+				.row
+					main.col-md-8.main-content
+						div.readme-body!=content
+					aside.col-md-4.sidebar
+						.widget
+							h4.title git地址
+							.content.community
+								p
+									a(href='https://github.com/shushanfx/nfile', title='nfile', target='_blank')
+										i.fa.fa-comments
+										|  nfile
+						.widget
+							h4.title 标签云
+							.content.tag-cloud
+								a(href='/tag/help/') 用户指南
+								a(href='/tag/markdown/') 用户指南
+								a(href='/tag/jquery/') jQuery
+								a(href='/tag/jquery/') Bootstrap
+								a(href='/tag/html/') html
+								a(href='/tag/http/') http
+								a(href='/tag/upload/') 文件上传
+								a(href='/tag/java/') java
+								a(href='/tag/jquery/') python
+								a(href='/tag/javascript/') javascript
+								a(href='/tag/mysql/') MySQL
+								a(href='/tag/promise/') Promise
+								a(href='/tag/nodejs/') Node.js
+								a(href='/tag/theme/') 主题
+								a(href='/tag/nginx/') Nginx
+								a(href='/tag/proxy/') 反向代理
+								a(href='/tag/apache/') Apache
+								a(href='/tag/release/') 新版本发布
+								a(href='/tag-cloud/') ...
+		.copyright
+			.container
+				.row
+					.col-sm-12
+						span
+							| Copyright © 
+							a(href='http://www.shushanfx.com/') 蜀山风行工作室
+		a#back-to-top(href='#')
+			i.fa.fa-angle-up
+		script(src='//cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
+		script(src='//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')
+		script(src='//cdn.bootcss.com/highlight.js/8.5/highlight.min.js')

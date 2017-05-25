@@ -175,7 +175,6 @@ class FileUtils {
         var list = [];
         var realPath = this.getPath(filePath);
         var readDir = function(obj) {
-            var retList = [];
             var files = fs.readdirSync(obj.abPath);
             files && files.length > 0 && files.forEach(item => {
                 var goodPath = path.join(obj.abPath, item);
@@ -189,25 +188,26 @@ class FileUtils {
                 if (stats.isDirectory()) {
                     var myList = readDir(fileObject);
                     if (myList && myList.length > 0) {
-                        retList.splice(retList.length - 1, 0, myList);
+                        Array.prototype.push.apply(list, myList);
                     }
                 } else {
                     fileObject.stats = stats;
                     fileObject.ext = me.getExtName(fileObject.fsPath);
 
                     if (typeof filter === "function") {
-                        filter.call(me, fileObject) && retList.push(fileObject);
+                        filter.call(me, fileObject) && list.push(fileObject);
                     } else {
-                        retList.push(fileObject);
+                        list.push(fileObject);
                     }
                 }
             });
-            return retList;
         }
-        return readDir({
+        readDir({
             abPath: this.getPath(filePath),
             fsPath: filePath
         });
+
+        return list;
     }
 }
 

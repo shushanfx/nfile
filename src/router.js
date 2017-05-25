@@ -21,20 +21,20 @@ var htmlPath = {
 };
 router.register = function(app) {
     var key, value;
-    app.use(function(req, res, next){
+    app.use(function(req, res, next) {
         Object.defineProperty(req, "isIE", {
-            get: function(){
+            get: function() {
                 var header = req.header("user-agent");
-                if(header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1){
+                if (header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1) {
                     return true;
                 }
                 return false;
             }
         });
         Object.defineProperty(res, "isIE", {
-            get: function(){
+            get: function() {
                 var header = req.header("user-agent");
-                if(header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1){
+                if (header && (header.toLowerCase().indexOf("msie") != -1) || header.toLowerCase().indexOf("trident") != -1) {
                     return true;
                 }
                 return false;
@@ -45,6 +45,7 @@ router.register = function(app) {
 
     require("./router/FileRouter.js")(htmlPath);
     require("./router/FileView.js")(htmlPath);
+    require("./router/TagRouter.js")(htmlPath);
     app.use(function(req, res, next) {
         var obj = {
             config: serverConfig

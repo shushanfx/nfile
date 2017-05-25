@@ -1,10 +1,12 @@
 var fs = require('fs')
 var fse = require('fs-extra')
 
+
 var BaseRouter = require('./BaseRouter.js')
 var RouterUtils = require('../util/RouterUtils.js')
 var FileUtils = require("../util/FileUtils.js");
 var MarkdownUtils = require("../util/MarkdownUtils.js");
+var DateUtils = require("../util/DateUtils.js");
 
 class MyRouter extends BaseRouter {
     init() {
@@ -57,14 +59,16 @@ class MyRouter extends BaseRouter {
         });
         me.html("/file/list", function(req, res) {
             var list = FileUtils.listFileSync(".", function(obj) {
-                if (obj.ext === "md" || obj.ext === "doc" || obj.ext === "docx" ||
+                if (obj.ext === "md" || obj.ext === "html" ||
+                    obj.ext === "doc" || obj.ext === "docx" ||
                     obj.ext === "ppt" || obj.ext === "pptx" ||
                     obj.ext === "xls" || obj.ext === "xlsx") {
-                    if (obj.ext === "md") {
+                    if (obj.ext === "md" || obj.ext === "html") {
                         obj.tag = ""
                     } else {
                         obj.tag = "下载"
                     }
+                    obj.mtime = DateUtils.getFriendlyTime(obj.stats.mtime);
                     return true;
                 }
                 return false;
@@ -72,17 +76,35 @@ class MyRouter extends BaseRouter {
 
             var index = req.query["index"],
                 size = req.query["size"];
+            var minValue = 0;
+            var total = 0;
+            var pageTotal = 0;
+            var topList;
 
-            if (Number.isNaN(index) || index <= 0) {
+            if (!index || Number.isNaN(index) || index <= 0) {
                 index = 1;
             }
-            if (Number.isNaN(size) || size <= 0) {
+            if (!size || Number.isNaN(size) || size <= 0) {
                 size = 10;
             }
+
+            if (list && list.length > 0) {
+                total = list.length;
+                list.sort((a, b) => {
+                    return a.stats.mtime.getTime() - b.stats.mtime.getTime();
+                });
+                minValue = Math.min(size * index, total);
+                topList = list.slice(0, 3);
+                list = list.slice(size * (index - 1), minValue);
+            }
+
             res.render("file/list", {
-                index: index,
-                size: size,
-                list: list
+                pageIndex: index,
+                pageSize: size,
+                pageTotal: size > 0 ? Math.ceil(total / size) : 1,
+                total: total,
+                list: list,
+                topList: topList
             });
         })
     }
