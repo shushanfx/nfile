@@ -72,6 +72,20 @@ function getFriendlyTime(date, now) {
     }
 }
 
+function inNDays(date, days) {
+    if (!days || Number.isNaN(days) || days <= 0) {
+        days = 1;
+    }
+    var curDate = new Date();
+    var dalta = curDate.getTime() - date.getTime();
+
+    if (dalta <= days * 1000 * 3600 * 24) {
+        return true;
+    }
+    return false;
+}
+
 
 module.exports.getFriendlyTime = getFriendlyTime;
 module.exports.getFriendlyTimeFromString = getFriendlyTimeFromString;
+module.exports.inNDays = inNDays;

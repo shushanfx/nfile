@@ -69,6 +69,7 @@ class MyRouter extends BaseRouter {
                         obj.tag = "下载"
                     }
                     obj.mtime = DateUtils.getFriendlyTime(obj.stats.mtime);
+                    obj.isNew = DateUtils.inNDays(obj.stats.mtime, 5);
                     return true;
                 }
                 return false;
@@ -91,7 +92,8 @@ class MyRouter extends BaseRouter {
             if (list && list.length > 0) {
                 total = list.length;
                 list.sort((a, b) => {
-                    return a.stats.mtime.getTime() - b.stats.mtime.getTime();
+                    // 降序
+                    return b.stats.mtime.getTime() - a.stats.mtime.getTime();
                 });
                 minValue = Math.min(size * index, total);
                 topList = list.slice(0, 3);

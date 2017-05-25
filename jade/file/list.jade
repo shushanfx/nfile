@@ -14,7 +14,7 @@ html(lang='zh-CN')
 			.container
 				.row
 					.col-sm-12
-						a.branding(href='.', title='文件共享平台')
+						a.branding(href='/file/list', title='文件共享平台')
 							img(src='/images/4f5566c1f7bc28b3f7ac1fada8abe.png', alt='文件共享系统')
 		nav.main-navigation
 			.container
@@ -40,7 +40,10 @@ html(lang='zh-CN')
 							article.post
 								.post-head
 									h1.post-title
-										a(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}") #{item.name}
+										a(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}") 
+											| #{item.name}
+											if item.isNew
+												span.label.label-danger(style="font-size: 10px;margin-left: 5px;") 新
 									.post-meta
 										span.author
 											| 格式：#{item.ext}
@@ -77,7 +80,6 @@ html(lang='zh-CN')
 						.widget
 							h4.title 标签云
 							.content.tag-cloud
-								a(href='/tag/help/') 用户指南
 								a(href='/tag/markdown/') 用户指南
 								a(href='/tag/jquery/') jQuery
 								a(href='/tag/jquery/') Bootstrap
