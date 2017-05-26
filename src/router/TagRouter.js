@@ -31,10 +31,13 @@ class MyRouter extends BaseRouter {
             }
             var currentName = uri;
             var ext = FileUtils.getExtName(currentName);
+
             MarkdownUtils.parse2Html(currentName, function(err, obj) {
                 if (err) {
                     console.dir(err);
-                    RouterUtils.error(res, "获取文件失败！");
+                    res.render("home/error", {
+                        message: "获取文件失败！" 
+                    });
                 } else {
                     res.render("readme-new", obj);
                 }

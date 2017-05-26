@@ -10,10 +10,8 @@ var getWidthString = function(num) {
 };
 
 function getFriendlyTimeFromString(str, now) {
-    var currentTime = new Date(now);
     var arr = str.split(/\s+/gi);
-    var temp = 0,
-        arr1, arr2, oldTime, delta;
+    var arr1, arr2, oldTime;
 
     if (arr.length >= 2) {
         arr1 = arr[0].split(/[\/\-]/gi);
@@ -26,22 +24,7 @@ function getFriendlyTimeFromString(str, now) {
         oldTime.setHours(getIntValue(arr2[0], currentTime.getHours()));
         oldTime.setMinutes(getIntValue(arr2[1], currentTime.getMinutes()));
         oldTime.setSeconds(getIntValue(arr2[2], currentTime.getSeconds()));
-
-        delta = currentTime.getTime() - oldTime.getTime();
-
-        if (delta <= 6000) {
-            return "1分钟内";
-        } else if (delta < 60 * 60 * 1000) {
-            return Math.floor(delta / (60 * 1000)) + "分钟前";
-        } else if (delta < 24 * 60 * 60 * 1000) {
-            return Math.floor(delta / (60 * 60 * 1000)) + "小时前";
-        } else if (delta < 3 * 24 * 60 * 60 * 1000) {
-            return Math.floor(delta / (24 * 60 * 60 * 1000)) + "天前";
-        } else if (currentTime.getFullYear() != oldTime.getFullYear()) {
-            return [getWidthString(oldTime.getFullYear()), getWidthString(oldTime.getMonth() + 1), getWidthString(oldTime.getDate())].join("-")
-        } else {
-            return [getWidthString(oldTime.getMonth() + 1), getWidthString(oldTime.getDate())].join("-");
-        }
+        return getFriendlyTime(oldTime, now);
     }
     return "";
 }
@@ -53,9 +36,13 @@ function getFriendlyTime(date, now) {
     if (typeof date == "string") {
         return getFriendlyTimeFromString(date);
     }
-    currentTime = new Date(now);
+    if(now){
+        currentTime = new Date(now);
+    }
+    else{
+        currentTime = new Date();
+    }
     oldTime = date;
-
     delta = currentTime.getTime() - oldTime.getTime();
     if (delta <= 6000) {
         return "1分钟内";
@@ -89,3 +76,12 @@ function inNDays(date, days) {
 module.exports.getFriendlyTime = getFriendlyTime;
 module.exports.getFriendlyTimeFromString = getFriendlyTimeFromString;
 module.exports.inNDays = inNDays;
+module.exports.formatDate = function(date){
+    return [getWidthString(date.getFullYear()), getWidthString(date.getMonth() + 1), getWidthString(date.getDate())].join("-");   
+}
+module.exports.formatTime = function(date){
+    return [getWidthString(date.getHours()), getWidthString(date.getMinutes()), getWidthString(date.getSeconds())].join(":")
+}
+module.exports.format = function(date){
+    return this.formatDate(date) + " " + this.formatTime(date);
+}

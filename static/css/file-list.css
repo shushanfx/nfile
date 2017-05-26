@@ -1066,8 +1066,8 @@ pre {
 
 #back-to-top {
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: 30px;
+    bottom: 30px;
     background: rgba(230, 126, 34, 0.6);
     color: #ffffff;
     text-align: center;
@@ -1084,4 +1084,39 @@ pre {
     width: 30px;
     height: 30px;
     line-height: 30px;
+}
+
+#back-to-top.back-top-show{
+   animation: comeIn 0.5s 1; 
+   animation-timing-function: linear;
+   display: block !important;
+}
+#back-to-top.back-top-hide{
+   animation: comeOut 0.5s 1;  
+   animation-timing-function: linear;
+   display: block !important;
+   right: -50px;
+}
+
+@keyframes comeIn 
+{
+  0%{
+    right: -30px;
+    transform: rotate(0deg);
+  }
+  100%{
+    right: 30px;
+    transform: rotate(-360deg)
+  }
+}
+@keyframes comeOut
+{
+  100%{
+    right: -30px;
+    transform: rotate(360deg);
+  }
+  0%{
+    right: 30px;
+    transform: rotate(0deg);
+  } 
 }

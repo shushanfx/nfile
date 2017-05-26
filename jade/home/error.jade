@@ -1,15 +1,13 @@
 extend ../common/new-page
 
 block title
-	title 开发中
+	title Error
 block main
 	article#98.post
 		.post-content
 			p
-				| 开发中，敬请期待：）
+				| #{message}
 		.post-permalink
 			a.btn.btn-default(href='/file/list') 返回
 		footer.post-footer.clearfix
-			.pull-left.tag-list
-				i.fa.fa-folder-open-o
 			.pull-right.share

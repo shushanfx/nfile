@@ -209,6 +209,23 @@ class FileUtils {
 
         return list;
     }
+    toFriendlySize(byteSize){
+        if(!Number.isNaN(byteSize)){
+            if(byteSize < 1024){
+                return byteSize + "b";
+            }
+            else if(byteSize < 1024 * 1024){
+                return (byteSize / 1024).toFixed(1) + "k";
+            }
+            else if(byteSize < 1024 * 1024 * 1024){
+                return  (byteSize / 1024 / 1024).toFixed(1) + "M";
+            }
+            else{
+                return (byteSize / 1024 / 1024 / 1024).toFixed(1) + "G";
+            }
+        }
+        return "EMPTY";
+    }
 }
 
 module.exports = exports = new FileUtils();

@@ -68,8 +68,12 @@ class MyRouter extends BaseRouter {
                     } else {
                         obj.tag = "下载"
                     }
-                    obj.mtime = DateUtils.getFriendlyTime(obj.stats.mtime);
+                    obj.ftime = DateUtils.getFriendlyTime(obj.stats.mtime);
                     obj.isNew = DateUtils.inNDays(obj.stats.mtime, 5);
+                    obj.mtime = DateUtils.format(obj.stats.mtime);
+                    obj.ctime = DateUtils.format(obj.stats.ctime); 
+                    obj.size = FileUtils.toFriendlySize(obj.stats.size);
+
                     return true;
                 }
                 return false;

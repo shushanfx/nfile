@@ -1,151 +1,69 @@
-doctype html
-html(lang='zh-CN')
-	head
-		meta(charset='utf-8')
-		meta(http-equiv='X-UA-Compatible', content='IE=edge')
-		title 分享平台
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(rel='shortcut icon', href='/favicon.ico')
-		link(rel='stylesheet', href='//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
-		link(rel='stylesheet', href='//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css')
-		link(rel='stylesheet', href='/css/file-list.css')
-	body.home-template
-		header.main-header(style='background-image: url(/images/fcb3879e14429d75833a461572e64.jpg)')
-			.container
-				.row
-					.col-sm-12
-						a.branding(href='/file/list', title='文件共享平台')
-							img(src='/images/4f5566c1f7bc28b3f7ac1fada8abe.png', alt='文件共享系统')
-		nav.main-navigation
-			.container
-				.row
-					.col-sm-12
-						.navbar-header
-							span.nav-toggle-button.collapsed(data-toggle='collapse', data-target='#main-menu')
-								span.sr-only Toggle navigation
-								i.fa.fa-bars
-						#main-menu.collapse.navbar-collapse
-							ul.menu
-								li.nav-current(role='presentation')
-									a(href='/file/list') 首页
-								li(role='presentation')
-									a(href='/') 编辑
-								li(role='presentation')
-									a(href='/about/') 关于
-		section.content-wrap
-			.container
-				.row
-					main.col-md-8.main-content
-						for item, index in list
-							article.post
-								.post-head
-									h1.post-title
-										a(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}") 
-											| #{item.name}
-											if item.isNew
-												span.label.label-danger(style="font-size: 10px;margin-left: 5px;") 新
-									.post-meta
-										span.author
-											| 格式：#{item.ext}
-										| • &nbsp;
-										time.post-date #{item.mtime}
-								.post-content
-									p
-										| 文件路径：#{item.fsPath}
-								.post-permalink
-									a.btn.btn-default(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
-										if item.tag == "下载"
-											| 点击下载
-										else
-											| 阅读全文
-								footer.post-footer.clearfix
-									.pull-left.tag-list
-										i.fa.fa-folder-open-o
-						nav.pagination(role='navigation')
-							if pageIndex > 1
-								a.newer-posts(href='?index=#{pageIndex - 1}')
-									i.fa.fa-angle-left
-							span.page-number 第 #{pageIndex} 页 ⁄ 共 #{pageTotal} 页
-							if pageIndex < pageTotal
-								a.older-posts(href='?index=#{pageIndex + 1}')
-									i.fa.fa-angle-right
-					aside.col-md-4.sidebar
-						.widget
-							h4.title git地址
-							.content.community
-								p
-									a(href='https://github.com/shushanfx/nfile', title='nfile', target='_blank')
-										i.fa.fa-comments
-										|  nfile
-						.widget
-							h4.title 标签云
-							.content.tag-cloud
-								a(href='/tag/markdown/') 用户指南
-								a(href='/tag/jquery/') jQuery
-								a(href='/tag/jquery/') Bootstrap
-								a(href='/tag/html/') html
-								a(href='/tag/http/') http
-								a(href='/tag/upload/') 文件上传
-								a(href='/tag/java/') java
-								a(href='/tag/jquery/') python
-								a(href='/tag/javascript/') javascript
-								a(href='/tag/mysql/') MySQL
-								a(href='/tag/promise/') Promise
-								a(href='/tag/nodejs/') Node.js
-								a(href='/tag/theme/') 主题
-								a(href='/tag/nginx/') Nginx
-								a(href='/tag/proxy/') 反向代理
-								a(href='/tag/apache/') Apache
-								a(href='/tag/release/') 新版本发布
-								a(href='/tag-cloud/') ...
-		footer.main-footer
-			.container
-				.row
-					.col-sm-4
-						.widget
-							h4.title 最新文章
-							.content.recent-post
-								for item, index in topList
-									.recent-single-post
-										a.post-title(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
-										.date #{item.mtime}
-					.col-sm-4
-						.widget
-							h4.title 标签云
-							.content.tag-cloud
-								a(href='/tag/help/') 帮助
-								a(href='/tag/release/') 新版本发布
-								a(href='/tag/javascript/') JavaScript
-								a(href='/tag/promise/') Promise
-								a(href='/tag/theme/') 主题
-								a(href='/tag/nodejs/') Node.js
-								a(href='/tag/mysql/') MySQL
-								a(href='/tag/nginx/') Nginx
-								a(href='/tag/ubuntu/') Ubuntu
-								a(href='/tag/markdown/') Markdown
-								a(href='/tag/proxy/') 反向代理
-								a(href='/tag/apache/') Apache
-								a(href='/tag-cloud/') ...
-					.col-sm-4
-						.widget
-							h4.title 合作伙伴
-							.content.tag-cloud.friend-links
-								a(href='http://www.bootcss.com', title='Bootstrap中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcsscom'])", target='_blank') Bootstrap中文网
-								a(href='http://www.bootcdn.cn', title='开放CDN服务', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcdncn'])", target='_blank') 开放CDN服务
-								a(href='http://www.gruntjs.net', title='Grunt中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'gruntjsnet'])", target='_blank') Grunt中文网
-								a(href='http://www.gulpjs.com.cn/', title='Gulp中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'gulpjscomcn'])", target='_blank') Gulp中文网
-								hr
-								a(href='http://lodashjs.com/', title='Lodash中文文档', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'lodashjscom'])", target='_blank') Lodash中文文档
-								a(href='http://www.jquery123.com/', title='jQuery中文文档', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'jquery123com'])", target='_blank') jQuery中文文档
-		.copyright
-			.container
-				.row
-					.col-sm-12
-						span
-							| Copyright © 
-							a(href='http://www.shushanfx.com/') 蜀山风行工作室
-		a#back-to-top(href='#')
-			i.fa.fa-angle-up
-		script(src='//cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
-		script(src='//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')
-		script(src='//cdn.bootcss.com/highlight.js/8.5/highlight.min.js')
+extend ../common/new-page
+
+block title
+	title 分享平台
+block main
+	for item, index in list
+		article.post
+			.post-head
+				h1.post-title
+					a(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}") 
+						| #{item.name}
+						if item.isNew
+							span.label.label-danger(style="font-size: 10px;margin-left: 5px;") 新
+				.post-meta
+					span.author
+						| 格式：#{item.ext}
+					span.author
+						| 大小：#{item.size}
+					| • &nbsp;
+					time.post-date #{item.ftime}
+			.post-content
+				p
+					| 文件路径：#{item.fsPath}
+					| &nbsp;&nbsp;
+					| 修改时间：#{item.mtime}
+			.post-permalink
+				a.btn.btn-default(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
+					if item.tag == "下载"
+						| 点击下载
+					else
+						| 阅读全文
+	nav.pagination(role='navigation')
+block footer
+	.col-sm-4
+		.widget
+			h4.title 最新文章
+			.content.recent-post
+				for item, index in topList
+					.recent-single-post
+						a.post-title(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
+						.date #{item.mtime}
+	.col-sm-4
+		.widget
+			h4.title 标签云
+			.content.tag-cloud
+				a(href='/tag/help/') 帮助
+				a(href='/tag/release/') 新版本发布
+				a(href='/tag/javascript/') JavaScript
+				a(href='/tag/promise/') Promise
+				a(href='/tag/theme/') 主题
+				a(href='/tag/nodejs/') Node.js
+				a(href='/tag/mysql/') MySQL
+				a(href='/tag/nginx/') Nginx
+				a(href='/tag/ubuntu/') Ubuntu
+				a(href='/tag/markdown/') Markdown
+				a(href='/tag/proxy/') 反向代理
+				a(href='/tag/apache/') Apache
+				a(href='/tag-cloud/') ...
+	.col-sm-4
+		.widget
+			h4.title 合作伙伴
+			.content.tag-cloud.friend-links
+				a(href='http://www.bootcss.com', title='Bootstrap中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcsscom'])", target='_blank') Bootstrap中文网
+				a(href='http://www.bootcdn.cn', title='开放CDN服务', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcdncn'])", target='_blank') 开放CDN服务
+				a(href='http://www.gruntjs.net', title='Grunt中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'gruntjsnet'])", target='_blank') Grunt中文网
+				a(href='http://www.gulpjs.com.cn/', title='Gulp中文网', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'gulpjscomcn'])", target='_blank') Gulp中文网
+				hr
+				a(href='http://lodashjs.com/', title='Lodash中文文档', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'lodashjscom'])", target='_blank') Lodash中文文档
+				a(href='http://www.jquery123.com/', title='jQuery中文文档', onclick="_hmt.push(['_trackEvent', 'link', 'click', 'jquery123com'])", target='_blank') jQuery中文文档
