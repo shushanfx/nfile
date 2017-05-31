@@ -21,6 +21,9 @@
                     if (node.href.indexOf(".ppt") !== -1 ||
                         node.href.indexOf("pptx") !== -1 ||
                         node.href.indexOf("doc") !== -1 ||
+                        node.href.indexOf("xls") !== -1 ||
+                        node.href.indexOf("xlsx") !== -1 ||
+                        node.href.indexOf("pdf") !== -1 ||
                         node.href.indexOf("docx") !== -1) {
                         window.open('file/view/' + node.href.replace(/\\/gi, "/"));
                         return true;

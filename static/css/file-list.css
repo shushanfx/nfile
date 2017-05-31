@@ -1066,7 +1066,7 @@ pre {
 
 #back-to-top {
     position: fixed;
-    right: 30px;
+    right: -50px;
     bottom: 30px;
     background: rgba(230, 126, 34, 0.6);
     color: #ffffff;
@@ -1090,6 +1090,7 @@ pre {
    animation: comeIn 0.5s 1; 
    animation-timing-function: linear;
    display: block !important;
+   right: 30px;
 }
 #back-to-top.back-top-hide{
    animation: comeOut 0.5s 1;  

@@ -7,7 +7,7 @@ block main
 		article.post
 			.post-head
 				h1.post-title
-					a(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}") 
+					a(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") 
 						| #{item.name}
 						if item.isNew
 							span.label.label-danger(style="font-size: 10px;margin-left: 5px;") 新
@@ -24,12 +24,19 @@ block main
 					| &nbsp;&nbsp;
 					| 修改时间：#{item.mtime}
 			.post-permalink
-				a.btn.btn-default(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
+				a.btn.btn-default(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
 					if item.tag == "下载"
 						| 点击下载
 					else
 						| 阅读全文
 	nav.pagination(role='navigation')
+		if pageIndex > 1
+			a.newer-posts(href='/file/list?index=#{1 * pageIndex - 1}')
+				i.fa.fa-angle-left
+		span.page-number 第 #{pageIndex} 页 ⁄ 共 #{pageTotal} 页
+		if pageIndex < pageTotal
+			a.older-posts(href='/file/list?index=#{1 * pageIndex + 1}')
+				i.fa.fa-angle-right
 block footer
 	.col-sm-4
 		.widget
@@ -37,7 +44,7 @@ block footer
 			.content.recent-post
 				for item, index in topList
 					.recent-single-post
-						a.post-title(href="#{item.ext == 'md' ? '/readme/' : '/file/view/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
+						a.post-title(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
 						.date #{item.mtime}
 	.col-sm-4
 		.widget

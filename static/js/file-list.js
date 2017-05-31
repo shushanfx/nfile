@@ -1,6 +1,7 @@
 $(function(){
 	var backToTopTimer = null;
 	var elTop = document.querySelector("#back-to-top");
+	var isElShow = false;
 	function getScrollY(){
         var scrollTop=0;
         if(window.scrollY > 0){
@@ -14,13 +15,17 @@ $(function(){
         }
         return scrollTop;
     }
-	function checkScroll(){
+	function checkScroll(isFirst){
 		var top = getScrollY();
 		if(top > 100){
 			elTop && (elTop.className = "back-top-show") ;  
+			isElShow = true;
 		}
 		else{
-			elTop && (elTop.className = "back-top-hide"); 
+			if(isElShow){
+				elTop && (elTop.className = "back-top-hide"); 
+				isElShow = false;
+			}
 		}
 	}
 	elTop.addEventListener("click", function(){
@@ -45,5 +50,5 @@ $(function(){
 	window.addEventListener("scroll", function(){
 		checkScroll();
 	}, false);
-	checkScroll();
+	checkScroll(true);
 });

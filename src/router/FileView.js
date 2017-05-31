@@ -62,8 +62,11 @@ class MyRouter extends BaseRouter {
                 if (obj.ext === "md" || obj.ext === "html" ||
                     obj.ext === "doc" || obj.ext === "docx" ||
                     obj.ext === "ppt" || obj.ext === "pptx" ||
+                    obj.ext === "pdf" ||
                     obj.ext === "xls" || obj.ext === "xlsx") {
-                    if (obj.ext === "md" || obj.ext === "html") {
+                    if (obj.ext === "md" 
+                        || obj.ext === "html"
+                        || obj.ext === "pdf") {
                         obj.tag = ""
                     } else {
                         obj.tag = "下载"

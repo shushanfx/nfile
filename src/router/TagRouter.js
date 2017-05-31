@@ -32,16 +32,29 @@ class MyRouter extends BaseRouter {
             var currentName = uri;
             var ext = FileUtils.getExtName(currentName);
 
-            MarkdownUtils.parse2Html(currentName, function(err, obj) {
-                if (err) {
-                    console.dir(err);
+            if(ext == "md"){
+                MarkdownUtils.parse2Html(currentName, function(err, obj) {
+                    if (err) {
+                        console.dir(err);
+                        res.render("home/error", {
+                            message: "获取文件失败！" 
+                        });
+                    } else {
+                        res.render("readme-new", obj);
+                    }
+                });
+            }
+            else{
+                var buffer = fs.readFileSync(currentName)
+                if (buffer) {
+                    res.writeHead(200, { 'Content-Disposition': 'inline', 'Content-Type': FileUtils.getFileMimeType(currentName) })
+                    res.end(buffer, 'binary')
+                } else {
                     res.render("home/error", {
                         message: "获取文件失败！" 
                     });
-                } else {
-                    res.render("readme-new", obj);
                 }
-            });
+            }
         });
         me.html("/tag/*", function(req, res) {
             res.render("tag/tag");
