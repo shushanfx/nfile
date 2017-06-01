@@ -1,5 +1,8 @@
 # Change logs for nfile
 
+## 2017-06-01
+* Add prefix support for file system. when you embed nfile into another system, just config the base parameter.
+
 ## 2017-05-26
 * Fix bugs for calculating modified time of the file.
 * Add back-to-top button for file list page.

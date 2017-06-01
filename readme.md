@@ -24,12 +24,15 @@ You can adjust the config as your wish. Config is placed in `server.json`.
     "cnName": "文件管理系统",
     "company": "shushanfx.com",
     "description": "文件管理系统",
+    "base": "/", // you can set to /nfile
     "workspace": {
         "path": "/shushanfx/node/data", // file path.
         "workspace": "/shushanfx/node/nfile"
     }
 }
 ```
+
+> When the `base` parameter is not null or `/`, it means that you have set a prefix for your webside, thus you must browser your website by `http://${host}:${port}/${base}`
 
 ## preview
 It looks like the follow:    
