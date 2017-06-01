@@ -13,7 +13,7 @@ $(function() {
         postDelay: 1000
     }
     var $float = $(".float-frame");
-    $iframe.attr("src", "/file/view/" + editor.path.replace(/\\/gi, "/") + "?realtime=1");
+    $iframe.attr("src", nfile.getURI("/file/view/" + editor.path.replace(/\\/gi, "/") + "?realtime=1"));
     $iframe.on("load", function() {
         $iframe.css("display", "");
         postObject.canPost = true;

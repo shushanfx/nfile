@@ -34,9 +34,9 @@ app.use(multer());
 
 if('product' == app.get('env')){
   app.set("views", path.join(__dirname, 'jade_dist'));
-  app.use(express.static(path.join(__dirname, 'static_dist')))
+  app.use(SystemConfig.getBase(), express.static(path.join(__dirname, 'static_dist')))
 }
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(SystemConfig.getBase(), express.static(path.join(__dirname, 'static')));
 
 if ('development' == app.get('env')) {
   app.use(errorHandler());

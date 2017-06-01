@@ -120,7 +120,7 @@
                                     }
                                 })
                             } else if (item.id == 'rightMenuView') {
-                                FileSystem.addTab("view-" + node.text, '', '/file/view/' + node.href.replace(/\\/gi, "/"), {
+                                FileSystem.addTab("view-" + node.text, '', 'file/view/' + node.href.replace(/\\/gi, "/"), {
                                     refresh: true,
                                     scroll: true
                                 })
@@ -290,14 +290,14 @@
                     'auto': true,
                     'buttonText': "选择文件",
                     "queueID": "divFileUploadQueue",
-                    "uploadScript": "/file/upload?path=" + encodeURIComponent(path)
+                    "uploadScript": "file/upload?path=" + encodeURIComponent(path)
                 });
             } else {
                 $file.uploadifive({
                     'auto': true,
                     'buttonText': "选择文件",
                     "queueID": "divFileUploadQueue",
-                    "uploadScript": "/file/upload?path=" + encodeURIComponent(path)
+                    "uploadScript": "file/upload?path=" + encodeURIComponent(path)
                 });
             }
             $win.window("setTitle", ["文件上传【", path, "】"].join(""));

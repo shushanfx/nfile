@@ -6,15 +6,15 @@ html
         block title
             title #{config.cnName}
         include common/head
-        link(rel='stylesheet',type='text/css',href='/uploadifive/css/uploadifive.css')
-        script(type='text/javascript',src='/uploadifive/js/jquery.uploadifive.min.js')
-        script(type='text/javascript',src='/js/index.js')
+        link(rel='stylesheet',type='text/css',href='#{base}/uploadifive/css/uploadifive.css')
+        script(type='text/javascript',src='#{base}/uploadifive/js/jquery.uploadifive.min.js')
+        script(type='text/javascript',src='#{base}/js/index.js')
     body.easyui-layout
         div(region='north', split='true', border='false', style='overflow: hidden; height: 30px;\
-            background: url(/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
+            background: url(#{base}/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
             line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体')
         span(style='padding-left:10px; font-size: 16px; ')
-            img(src='/admin/images/blocks.gif', width='20', height='20', align='absmiddle')
+            img(src='#{base}/admin/images/blocks.gif', width='20', height='20', align='absmiddle')
             | &nbsp;&nbsp;#{config.cnName}
         div(data-options="region:'west',title: '文件夹',tools: [{iconCls: 'icon-reload', handler: function(){ onHandleTree();}}]",style="width:220px;")
             div#divFileTree.easyui-tree

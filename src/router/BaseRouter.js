@@ -26,7 +26,15 @@ class BaseRouter{
      * }    
      */
     register(path, obj){
-        this.map[path] = obj;
+        var me = this;
+        if(Array.isArray(path)){
+            path.forEach(item => {
+                me.map[item] = obj;
+            });
+        }
+        else{
+            this.map[path] = obj;
+        }
         return this;
     }
     /**

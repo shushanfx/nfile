@@ -9,15 +9,16 @@ html(lang='zh-CN')
 		link(rel='shortcut icon', href='/favicon.ico')
 		link(rel='stylesheet', href='//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
 		link(rel='stylesheet', href='//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css')
-		link(rel='stylesheet', href='/css/file-list.css')
+		link(rel='stylesheet', href='#{base}/css/file-list.css')
 		block css
+		include nfile
 	body.home-template
-		header.main-header(style='background-image: url(/images/fcb3879e14429d75833a461572e64.jpg)')
+		header.main-header(style='background-image: url(#{base}/images/fcb3879e14429d75833a461572e64.jpg)')
 			.container
 				.row
 					.col-sm-12
-						a.branding(href='/file/list', title='文件共享平台')
-							img(src='/images/4f5566c1f7bc28b3f7ac1fada8abe.png', alt='文件共享系统')
+						a.branding(href='#{base}/file/list', title='文件共享平台')
+							img(src='#{base}/images/4f5566c1f7bc28b3f7ac1fada8abe.png', alt='文件共享系统')
 		nav.main-navigation
 			.container
 				.row
@@ -29,13 +30,13 @@ html(lang='zh-CN')
 						#main-menu.collapse.navbar-collapse
 							ul.menu
 								li(role='presentation')
-									a(href='/file/list') 首页
+									a(href='#{base}/file/list') 首页
 								li(role='presentation')
-									a(href='/tag-cloud') 标签
+									a(href='#{base}/tag-cloud') 标签
 								li(role='presentation')
-									a(href='/') 编辑
+									a(href='#{base}/') 编辑
 								li(role='presentation')
-									a(href='/readme/readme.md') 关于
+									a(href='#{base}/readme/readme.md') 关于
 		section.content-wrap
 			.container
 				.row
@@ -53,24 +54,24 @@ html(lang='zh-CN')
 							.widget
 								h4.title 标签云
 								.content.tag-cloud
-									a(href='/tag/markdown/') 用户指南
-									a(href='/tag/jquery/') jQuery
-									a(href='/tag/jquery/') Bootstrap
-									a(href='/tag/html/') html
-									a(href='/tag/http/') http
-									a(href='/tag/upload/') 文件上传
-									a(href='/tag/java/') java
-									a(href='/tag/jquery/') python
-									a(href='/tag/javascript/') javascript
-									a(href='/tag/mysql/') MySQL
-									a(href='/tag/promise/') Promise
-									a(href='/tag/nodejs/') Node.js
-									a(href='/tag/theme/') 主题
-									a(href='/tag/nginx/') Nginx
-									a(href='/tag/proxy/') 反向代理
-									a(href='/tag/apache/') Apache
-									a(href='/tag/release/') 新版本发布
-									a(href='/tag-cloud/') ...
+									a(href='#{base}/tag/markdown/') 用户指南
+									a(href='#{base}/tag/jquery/') jQuery
+									a(href='#{base}/tag/jquery/') Bootstrap
+									a(href='#{base}/tag/html/') html
+									a(href='#{base}/tag/http/') http
+									a(href='#{base}/tag/upload/') 文件上传
+									a(href='#{base}/tag/java/') java
+									a(href='#{base}/tag/jquery/') python
+									a(href='#{base}/tag/javascript/') javascript
+									a(href='#{base}/tag/mysql/') MySQL
+									a(href='#{base}/tag/promise/') Promise
+									a(href='#{base}/tag/nodejs/') Node.js
+									a(href='#{base}/tag/theme/') 主题
+									a(href='#{base}/tag/nginx/') Nginx
+									a(href='#{base}/tag/proxy/') 反向代理
+									a(href='#{base}/tag/apache/') Apache
+									a(href='#{base}/tag/release/') 新版本发布
+									a(href='#{base}/tag-cloud/') ...
 		footer.main-footer
 			.container
 					.row
@@ -79,19 +80,19 @@ html(lang='zh-CN')
 								.widget
 									h4.title 标签云
 									.content.tag-cloud
-										a(href='/tag/help/') 帮助
-										a(href='/tag/release/') 新版本发布
-										a(href='/tag/javascript/') JavaScript
-										a(href='/tag/promise/') Promise
-										a(href='/tag/theme/') 主题
-										a(href='/tag/nodejs/') Node.js
-										a(href='/tag/mysql/') MySQL
-										a(href='/tag/nginx/') Nginx
-										a(href='/tag/ubuntu/') Ubuntu
-										a(href='/tag/markdown/') Markdown
-										a(href='/tag/proxy/') 反向代理
-										a(href='/tag/apache/') Apache
-										a(href='/tag-cloud/') ...
+										a(href='#{base}/tag/help/') 帮助
+										a(href='#{base}/tag/release/') 新版本发布
+										a(href='#{base}/tag/javascript/') JavaScript
+										a(href='#{base}/tag/promise/') Promise
+										a(href='#{base}/tag/theme/') 主题
+										a(href='#{base}/tag/nodejs/') Node.js
+										a(href='#{base}/tag/mysql/') MySQL
+										a(href='#{base}/tag/nginx/') Nginx
+										a(href='#{base}/tag/ubuntu/') Ubuntu
+										a(href='#{base}/tag/markdown/') Markdown
+										a(href='#{base}/tag/proxy/') 反向代理
+										a(href='#{base}/tag/apache/') Apache
+										a(href='#{base}/tag-cloud/') ...
 							.col-sm-4
 								.widget
 									h4.title 合作伙伴
@@ -116,5 +117,5 @@ html(lang='zh-CN')
 		script(src='//cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
 		script(src='//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')
 		script(src='//cdn.bootcss.com/highlight.js/8.5/highlight.min.js')
-		script(src='/js/file-list.js')
+		script(src='#{base}/js/file-list.js')
 		block script

@@ -57,7 +57,7 @@ class MyRouter extends BaseRouter {
                 }
             }
         });
-        me.html("/file/list", function(req, res) {
+        me.html(["/list", "/file/list"], function(req, res) {
             var list = FileUtils.listFileSync(".", function(obj) {
                 if (obj.ext === "md" || obj.ext === "html" ||
                     obj.ext === "doc" || obj.ext === "docx" ||
@@ -115,7 +115,7 @@ class MyRouter extends BaseRouter {
                 list: list,
                 topList: topList
             });
-        })
+        });
     }
 }
 

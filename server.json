@@ -4,6 +4,7 @@
     "cnName": "文件管理系统",
     "company": "file.shushanfx.com",
     "description": "文件管理系统",
+    "base": "/nfile",
     "workspace": {
         "path": "/shushanfx/node/data",
         "pwd": "/shushanfx/node/nfile"

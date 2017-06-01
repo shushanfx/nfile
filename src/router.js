@@ -2,7 +2,9 @@ var merge = require("merge");
 var path = require("path");
 
 var router = {};
-var serverConfig = require("./config.js").getConfig();
+var SystemConfig = require("./config.js");
+var serverConfig = SystemConfig.getConfig();
+var Router = require("express").Router;
 /**
  * string : function|object
  * function: see object handler
@@ -17,11 +19,15 @@ var serverConfig = require("./config.js").getConfig();
  */
 var htmlPath = {
     "/": indexController,
-    "/index.html": indexController
+    "/home": indexController,
+    "/index": indexController,
+    "/home": indexController
 };
 router.register = function(app) {
+    var router = new Router();
+    var base = SystemConfig.getBase() === "/" ? "" : SystemConfig.getBase();
     var key, value;
-    app.use(function(req, res, next) {
+    router.use(function(req, res, next) {
         Object.defineProperty(req, "isIE", {
             get: function() {
                 var header = req.header("user-agent");
@@ -41,14 +47,15 @@ router.register = function(app) {
             }
         });
         next();
-    })
+    });
 
     require("./router/FileRouter.js")(htmlPath);
     require("./router/FileView.js")(htmlPath);
     require("./router/TagRouter.js")(htmlPath);
-    app.use(function(req, res, next) {
+    router.use(function(req, res, next) {
         var obj = {
-            config: serverConfig
+            config: serverConfig,
+            base: base
         };
         var date = new Date();
         obj.datetime = {
@@ -74,18 +81,18 @@ router.register = function(app) {
     for (key in htmlPath) {
         value = htmlPath[key];
         if (typeof(value) == "function") {
-            app.get(key, value);
+            router.get(key, value);
         } else if (typeof(value) == "object" && typeof(value.handler)) {
             if (value.method == "post") {
-                app.post(key, value.handler);
+                router.post(key, value.handler);
             } else if (value.method === "all") {
-                app.all(key, value.handler);
+                router.all(key, value.handler);
             } else {
-                app.get(key, value.handler);
+                router.get(key, value.handler);
             }
         }
     }
-    app.use(function(err, req, res, next) {
+    router.use(function(err, req, res, next) {
         var type = null;
         if (err && (err instanceof Error)) {
             console.error(err);
@@ -101,6 +108,7 @@ router.register = function(app) {
             next();
         }
     });
+    app.use(SystemConfig.getBase(), router);
 };
 
 function indexController(req, res) {

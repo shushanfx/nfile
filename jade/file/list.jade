@@ -7,7 +7,7 @@ block main
 		article.post
 			.post-head
 				h1.post-title
-					a(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") 
+					a(href="#{base}#{'/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") 
 						| #{item.name}
 						if item.isNew
 							span.label.label-danger(style="font-size: 10px;margin-left: 5px;") 新
@@ -24,18 +24,18 @@ block main
 					| &nbsp;&nbsp;
 					| 修改时间：#{item.mtime}
 			.post-permalink
-				a.btn.btn-default(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
+				a.btn.btn-default(href="#{base}#{'/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}")
 					if item.tag == "下载"
 						| 点击下载
 					else
 						| 阅读全文
 	nav.pagination(role='navigation')
 		if pageIndex > 1
-			a.newer-posts(href='/file/list?index=#{1 * pageIndex - 1}')
+			a.newer-posts(href='#{base}/file/list?index=#{1 * pageIndex - 1}')
 				i.fa.fa-angle-left
 		span.page-number 第 #{pageIndex} 页 ⁄ 共 #{pageTotal} 页
 		if pageIndex < pageTotal
-			a.older-posts(href='/file/list?index=#{1 * pageIndex + 1}')
+			a.older-posts(href='#{base}/file/list?index=#{1 * pageIndex + 1}')
 				i.fa.fa-angle-right
 block footer
 	.col-sm-4
@@ -44,25 +44,25 @@ block footer
 			.content.recent-post
 				for item, index in topList
 					.recent-single-post
-						a.post-title(href="#{item.ext == 'md' ? '/readme/' : '/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
+						a.post-title(href="#{base}#{'/readme/'}#{item.fsPath}",target="#{item.tag == '下载' ? '' : '_blank'}") #{item.fsPath}
 						.date #{item.mtime}
 	.col-sm-4
 		.widget
 			h4.title 标签云
 			.content.tag-cloud
-				a(href='/tag/help/') 帮助
-				a(href='/tag/release/') 新版本发布
-				a(href='/tag/javascript/') JavaScript
-				a(href='/tag/promise/') Promise
-				a(href='/tag/theme/') 主题
-				a(href='/tag/nodejs/') Node.js
-				a(href='/tag/mysql/') MySQL
-				a(href='/tag/nginx/') Nginx
-				a(href='/tag/ubuntu/') Ubuntu
-				a(href='/tag/markdown/') Markdown
-				a(href='/tag/proxy/') 反向代理
-				a(href='/tag/apache/') Apache
-				a(href='/tag-cloud/') ...
+				a(href='#{base}/tag/help/') 帮助
+				a(href='#{base}/tag/release/') 新版本发布
+				a(href='#{base}/tag/javascript/') JavaScript
+				a(href='#{base}/tag/promise/') Promise
+				a(href='#{base}/tag/theme/') 主题
+				a(href='#{base}/tag/nodejs/') Node.js
+				a(href='#{base}/tag/mysql/') MySQL
+				a(href='#{base}/tag/nginx/') Nginx
+				a(href='#{base}/tag/ubuntu/') Ubuntu
+				a(href='#{base}/tag/markdown/') Markdown
+				a(href='#{base}/tag/proxy/') 反向代理
+				a(href='#{base}/tag/apache/') Apache
+				a(href='#{base}/tag-cloud/') ...
 	.col-sm-4
 		.widget
 			h4.title 合作伙伴
