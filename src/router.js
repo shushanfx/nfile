@@ -64,6 +64,7 @@ router.register = function(app) {
             day: date.getDate(),
             time: date.getTime()
         };
+        obj.param = merge(true, req.query, req.body);
         //  默认cookie与 req.cookie合并，赋给response上
         var setting = {
             theme: "default"

@@ -113,6 +113,13 @@ class FileUtils {
         }
         return ext;
     }
+    guaranteeParents(filePath) {
+        var parent = path.join(this.getPath(filePath), "..");
+        if (!fse.existsSync(filePath)) {
+            fse.mkdirpSync(parent);
+        }
+        return this;
+    }
     download(filePath, res) {
             var ext = "",
                 tmp = null;
@@ -184,6 +191,9 @@ class FileUtils {
                     abPath: goodPath,
                     fsPath: fsPath
                 };
+                if (item && item.startsWith(".")) {
+                    return true;
+                }
                 var stats = fs.statSync(goodPath);
                 if (stats.isDirectory()) {
                     var myList = readDir(fileObject);
@@ -209,18 +219,28 @@ class FileUtils {
 
         return list;
     }
-    toFriendlySize(byteSize){
-        if(!Number.isNaN(byteSize)){
-            if(byteSize < 1024){
+    exists(filePath) {
+        return fse.existsSync(this.getPath(filePath));
+    }
+    isNewer(filePath1, filePath2) {
+        if (this.exists(filePath1) && this.exists(filePath2)) {
+            let stats1 = fs.statSync(this.getPath(filePath1));
+            let stats2 = fs.statSync(this.getPath(filePath2));
+
+            return stats1.mtime.getTime() > stats2.mtime.getTime();
+        }
+
+        return false;
+    }
+    toFriendlySize(byteSize) {
+        if (!Number.isNaN(byteSize)) {
+            if (byteSize < 1024) {
                 return byteSize + "b";
-            }
-            else if(byteSize < 1024 * 1024){
+            } else if (byteSize < 1024 * 1024) {
                 return (byteSize / 1024).toFixed(1) + "k";
-            }
-            else if(byteSize < 1024 * 1024 * 1024){
-                return  (byteSize / 1024 / 1024).toFixed(1) + "M";
-            }
-            else{
+            } else if (byteSize < 1024 * 1024 * 1024) {
+                return (byteSize / 1024 / 1024).toFixed(1) + "M";
+            } else {
                 return (byteSize / 1024 / 1024 / 1024).toFixed(1) + "G";
             }
         }

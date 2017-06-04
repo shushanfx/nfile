@@ -33,6 +33,7 @@
     "multer": "^0.1.8",
     "nconf": "^0.7.1",
     "node-path-extras": "^0.4.1",
+    "poi-converter-node": "^1.0.1",
     "serve-favicon": "^2.2.0"
   },
   "license": "MIT",

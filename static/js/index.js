@@ -1,6 +1,7 @@
     function onHandleTree() {
         $.getJSON("file/tree", {
-            path: "."
+            path: window.param.path,
+            all: window.param.all
         }, function(result) {
             if (result && result.code === 1) {
                 $("#divFileTree").tree("loadData", result.data);

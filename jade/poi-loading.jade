@@ -1,0 +1,54 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="Content-Type",content="text/html; charset=UTF-8")
+        meta(name="viewport",content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
+        link(href="#{base}/css/readme-loading.css", rel="stylesheet")
+        include common/nfile
+        title #{title}
+    body.background
+        div#container
+            .stick
+            .stick
+            .stick
+            .stick
+            .stick
+            .stick
+            h1 Loading...
+        script(src="#{base}/js/jquery.min.js")
+        script.
+            $(function(){
+                var startTime = + new Date();
+                var doSomething = function(fun, minTime){
+                    var nowTime = + new Date();
+                    var leftTime = minTime - nowTime + startTime;
+                    fun && setTimeout(fun, leftTime > 0 ? leftTime : 1); 
+                }
+                var staticStick = function(){
+                    doSomething(function(){
+                        $("#container").each(function(){
+                            $(this).find(".stick").addClass("stick-static");
+                            $(this).find("h1").html("获取失败！");
+                        });
+                    }, 2000);
+                }
+                $.ajax({
+                    url: "#{base}/poi-convert",
+                    data: {
+                        src: "#{abPath}"
+                    },
+                    success: function(result){
+                        if(result && result.code == 1){
+                            window.location.href = "#{base}/poi/#{abPath}?view=1";
+                            // window.location.replace("#{base}/poi/#{abPath}?view=1");
+                        }
+                        else{
+                            staticStick();
+                        }
+                    },
+                    error: function(){
+                        staticStick();
+                    }
+                })
+            });

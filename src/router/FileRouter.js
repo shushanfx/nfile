@@ -146,7 +146,8 @@ class MyRouter extends BaseRouter {
                 RouterUtils.error(res, "下载文件失败！")
             }
         }).json('/file/tree', function(req, res) {
-            var filePath = req.query.path
+            var filePath = req.query.path;
+            var isAll = req.query.all === "1";
             if (!filePath) {
                 filePath = '.'
             }
@@ -154,16 +155,16 @@ class MyRouter extends BaseRouter {
                 data: [{
                     text: path.basename(FileUtils.getPath(filePath)),
                     state: 'open',
-                    href: '.',
+                    href: filePath,
                     dir: 1,
-                    children: getFileTree(filePath)
+                    children: getFileTree(filePath, isAll)
                 }]
             })
         });
     }
 }
 
-function getFileTree(newPath) {
+function getFileTree(newPath, isAll) {
     var tree = []
     var pp = FileUtils.getPath(newPath)
     if (fs.existsSync(pp)) {
@@ -178,10 +179,13 @@ function getFileTree(newPath) {
                     'href': pp2,
                     'dir': '0'
                 }
+            if (!isAll && item && item.startsWith(".")) {
+                continue;
+            }
             if (st.isDirectory()) {
-                obj.children = getFileTree(pp2)
-                obj.state = 'closed'
-                obj.dir = '1'
+                obj.children = getFileTree(pp2, isAll);
+                obj.state = 'closed';
+                obj.dir = '1';
             }
             tree.push(obj)
         }
