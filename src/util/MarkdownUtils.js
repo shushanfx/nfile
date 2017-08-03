@@ -1,8 +1,11 @@
 var marked = require("marked");
 var fs = require("fs");
-var obj = {};
+var merge = require("merge")
 
-marked.setOptions({
+var obj = {};
+var config = require("../config").getConfig();
+
+marked.setOptions(merge(true, {
     renderer: new marked.Renderer(),
     gfm: true,
     tables: true,
@@ -11,7 +14,7 @@ marked.setOptions({
     sanitize: true,
     smartLists: true,
     smartypants: false
-});
+}, config.marked));
 
 //增加的代码，用于个性化输出table
 var renderer = new marked.Renderer();

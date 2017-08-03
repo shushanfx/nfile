@@ -11,5 +11,8 @@
     }, 
     "logger": {
         "format": ":remote-addr - :remote-user [:date[iso]] \":method :url HTTP/:http-version\" :status :res[content-length] \":referrer\" \":user-agent\""
+    },
+    "marked": {
+        "sanitize": false
     }
 }

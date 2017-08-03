@@ -18,7 +18,6 @@ var Router = require("express").Router;
  * @type {{/: indexController, /index.html: indexController, detail.html: {handler: detailController}}}
  */
 var htmlPath = {
-    "/": indexController,
     "/home": indexController,
     "/index": indexController,
     "/home": indexController

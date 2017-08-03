@@ -1,2 +1,2 @@
 script(type="text/javascript").
-	var nfile = {base: "#{base}", getURI: function(uri){return this.base + uri;}};
+	var nfile = {base: "#{base}", getURI: function(uri){return this.base + uri;}, marked: !{JSON.stringify(config.marked)}} ;

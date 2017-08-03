@@ -6,6 +6,7 @@ var fse = require("fs-extra");
 var mime = require("mime");
 var JSZip = require('jszip');
 var Cache = require("memory-cache");
+var glob = require("glob");
 
 
 var RouterUtils = require("./RouterUtils")
@@ -219,6 +220,14 @@ class FileUtils {
 
         return list;
     }
+    getDirectoryList(filePath){
+        var _path = this.getPath(filePath);
+        var list = glob.sync("*", {
+            cwd: _path,
+            mark: true
+        });
+        return list;
+    }
     exists(filePath) {
         return fse.existsSync(this.getPath(filePath));
     }
@@ -245,6 +254,14 @@ class FileUtils {
             }
         }
         return "EMPTY";
+    }
+    rel(){
+        var nowPath = this.getPath.apply(this, arguments);
+        var basePath = this.getPath(".");
+        if(pathExtra.contains(basePath, nowPath)){
+            return path.relative(basePath, nowPath);
+        }
+        return "."
     }
 }
 

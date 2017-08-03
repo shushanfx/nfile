@@ -57,8 +57,20 @@ class MyRouter extends BaseRouter {
                 }
             }
         });
-        me.html(["/list", "/file/list"], function(req, res) {
-            var list = FileUtils.listFileSync(".", function(obj) {
+        me.html(["/list", "/file/list", "/"], function(req, res) {
+            var filePath = req.query.path;
+            var list = null, directoryList;
+            var index = req.query["index"],
+                size = req.query["size"];
+            var minValue = 0;
+            var total = 0;
+            var pageTotal = 0;
+            var topList;
+
+            if(!filePath){
+                filePath = "."
+            }
+            list = FileUtils.listFileSync(filePath, function(obj) {
                 if (obj.ext === "md" || obj.ext === "html" ||
                     obj.ext === "doc" || obj.ext === "docx" ||
                     obj.ext === "ppt" || obj.ext === "pptx" ||
@@ -81,13 +93,8 @@ class MyRouter extends BaseRouter {
                 }
                 return false;
             });
+            directoryList = FileUtils.getDirectoryList(filePath);
 
-            var index = req.query["index"],
-                size = req.query["size"];
-            var minValue = 0;
-            var total = 0;
-            var pageTotal = 0;
-            var topList;
 
             if (!index || Number.isNaN(index) || index <= 0) {
                 index = 1;
@@ -106,6 +113,10 @@ class MyRouter extends BaseRouter {
                 topList = list.slice(0, 3);
                 list = list.slice(size * (index - 1), minValue);
             }
+            if(directoryList && Array.isArray(directoryList)){
+                directoryList.splice(0, 0, {name:"..", path: FileUtils.rel(filePath, "..")});
+            }
+
 
             res.render("file/list", {
                 pageIndex: index,
@@ -113,6 +124,7 @@ class MyRouter extends BaseRouter {
                 pageTotal: size > 0 ? Math.ceil(total / size) : 1,
                 total: total,
                 list: list,
+                directory: directoryList,
                 topList: topList
             });
         });

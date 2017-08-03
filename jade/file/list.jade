@@ -2,6 +2,46 @@ extend ../common/new-page
 
 block title
 	title 分享平台
+block aside
+	.widget
+		h4.title git地址
+		.content.community
+			p
+				a(href='https://github.com/shushanfx/nfile', title='nfile', target='_blank')
+						i.fa.fa-comments
+						|  nfile
+	.widget
+		h4.title 文件夹列表
+		.content.community
+			for item, index in directory
+				if item && item.path
+					p
+						a(href="?path=#{encodeURIComponent(item.path)}", title="上级目录") 返回上级..
+				else 
+					if typeof(item) === "string" &&  item.lastIndexOf("/") == item.length -1 
+						p
+							a(href="?path=#{encodeURIComponent(item)}", title="#{item}") #{item}
+	.widget
+		h4.title 标签云
+		.content.tag-cloud
+			a(href='#{base}/tag/markdown/') 用户指南
+			a(href='#{base}/tag/jquery/') jQuery
+			a(href='#{base}/tag/jquery/') Bootstrap
+			a(href='#{base}/tag/html/') html
+			a(href='#{base}/tag/http/') http
+			a(href='#{base}/tag/upload/') 文件上传
+			a(href='#{base}/tag/java/') java
+			a(href='#{base}/tag/jquery/') python
+			a(href='#{base}/tag/javascript/') javascript
+			a(href='#{base}/tag/mysql/') MySQL
+			a(href='#{base}/tag/promise/') Promise
+			a(href='#{base}/tag/nodejs/') Node.js
+			a(href='#{base}/tag/theme/') 主题
+			a(href='#{base}/tag/nginx/') Nginx
+			a(href='#{base}/tag/proxy/') 反向代理
+			a(href='#{base}/tag/apache/') Apache
+			a(href='#{base}/tag/release/') 新版本发布
+			a(href='#{base}/tag-cloud/') ...
 block main
 	for item, index in list
 		article.post
