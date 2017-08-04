@@ -1,5 +1,6 @@
-# SogouTool
-## description
+# NFile 
+[![Build Status](https://travis-ci.org/shushanfx/nfile.svg?branch=master)](https://travis-ci.org/shushanfx/nfile)
+
 A file system based on nodejs & easyui. You can use it to edit / view / upload / download file.
 
 ## how to run it.

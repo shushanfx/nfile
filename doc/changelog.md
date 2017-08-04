@@ -1,5 +1,11 @@
 # Change logs for nfile
 
+## 2017-08-04
+* Add path selector for list page.
+* Mapping `/` to `/list`, other than `/index`, so it will present **file list** page default.
+* Support a embed html snippet in markdown file, this can be forbidden in `server.json`
+* Support ci in [travis ci](https://travis-ci.org/)
+
 ## 2017-06-01
 * Add prefix support for file system. when you embed nfile into another system, just config the base parameter.
 
