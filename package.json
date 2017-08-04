@@ -5,7 +5,8 @@
   "description": "A tool to manage file system.",
   "scripts": {
     "start": "node index.js",
-    "dev": "supervisor index.js"
+    "dev": "supervisor index.js",
+    "test": "jasmine spec/*.js"
   },
   "babel": {
     "presets": [
