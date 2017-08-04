@@ -71,11 +71,11 @@ block main
 				
 	nav.pagination(role='navigation')
 		if pageIndex > 1
-			a.newer-posts(href='#{base}/list?index=#{1 * pageIndex - 1}')
+			a.newer-posts(href='#{base}/list?index=#{1 * pageIndex - 1}&path=#{encodeURIComponent(path)}')
 				i.fa.fa-angle-left
 		span.page-number 第 #{pageIndex} 页 ⁄ 共 #{pageTotal} 页
 		if pageIndex < pageTotal
-			a.older-posts(href='#{base}/list?index=#{1 * pageIndex + 1}')
+			a.older-posts(href='#{base}/list?index=#{1 * pageIndex + 1}&path=#{encodeURIComponent(path)}')
 				i.fa.fa-angle-right
 block footer
 	.col-sm-4

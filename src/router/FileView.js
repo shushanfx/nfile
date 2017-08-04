@@ -122,6 +122,7 @@ class MyRouter extends BaseRouter {
                 pageIndex: index,
                 pageSize: size,
                 pageTotal: size > 0 ? Math.ceil(total / size) : 1,
+                path: filePath,
                 total: total,
                 list: list,
                 directory: directoryList,
