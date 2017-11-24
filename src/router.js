@@ -18,9 +18,10 @@ var Router = require("express").Router;
  * @type {{/: indexController, /index.html: indexController, detail.html: {handler: detailController}}}
  */
 var htmlPath = {
+    "/edit": indexController,
     "/home": indexController,
     "/index": indexController,
-    "/home": indexController
+    "/view": viewController,
 };
 router.register = function(app) {
     var router = new Router();
@@ -113,6 +114,11 @@ router.register = function(app) {
 
 function indexController(req, res) {
     res.render("index");
+}
+function viewController(req, res){
+    res.render("index", {
+        view: true
+    });
 }
 // 获得默认的cookie
 function getSettingCookie(cookies) {

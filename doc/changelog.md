@@ -1,5 +1,9 @@
 # Change logs for nfile
 
+## 2017-11-24
+* Add a new page for view(`/view`)
+* Change the `/index` to `/edit`
+
 ## 2017-08-04
 * Add path selector for list page.
 * Mapping `/` to `/list`, other than `/index`, so it will present **file list** page default.

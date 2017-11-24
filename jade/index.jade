@@ -5,15 +5,18 @@ html
         meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
         block title
             title #{config.cnName}
-        include common/head
-        link(rel='stylesheet',type='text/css',href='#{base}/uploadifive/css/uploadifive.css')
+        include common/head            
         script(type="text/javascript").
             window.param = {
                 all: "#{param.all}",
                 path: "#{param.path}"    
             }
-        script(type='text/javascript',src='#{base}/uploadifive/js/jquery.uploadifive.min.js')
-        script(type='text/javascript',src='#{base}/js/index.js')
+        if ( !view )
+            link(rel='stylesheet',type='text/css',href='#{base}/uploadifive/css/uploadifive.css')
+            script(type='text/javascript',src='#{base}/uploadifive/js/jquery.uploadifive.min.js')
+            script(type='text/javascript',src='#{base}/js/index.js')
+        else
+            script(type='text/javascript',src='#{base}/js/view.js')
     body.easyui-layout
         div(region='north', split='true', border='false', style='overflow: hidden; height: 30px;\
             background: url(#{base}/admin/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;\
