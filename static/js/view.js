@@ -135,7 +135,7 @@ $(function() {
 			$tabs.tabs('add', {
 				title: title,
 				iconCls: 'tree-file ' + icon,
-				content: "<iframe height='98%' width='100%' border ='0' frameBorder='0' scrolling='no' src='{url}' ></iframe>".replace("{url}", _url),
+				content: "<iframe height='98%' width='100%' border ='0' frameBorder='0' scrolling='yes' src='{url}' ></iframe>".replace("{url}", _url),
 				selected: true,
 				closable: true,
 				fit: true

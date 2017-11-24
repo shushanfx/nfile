@@ -354,7 +354,7 @@
                     $tabs.tabs('add', {
                         title: title,
                         iconCls: 'tree-file ' + icon,
-                        content: "<iframe height='100%' width='100%' border ='0' frameBorder='0' scrolling='{scroll}' src='{url}' ></iframe>".replace("{url}", url).replace("{scroll}", op.scroll ? "yes" : "no"),
+                        content: "<iframe height='98%' width='100%' border ='0' frameBorder='0' scrolling='{scroll}' src='{url}' ></iframe>".replace("{url}", url).replace("{scroll}", op.scroll ? "yes" : "no"),
                         selected: true,
                         closable: true,
                         fit: true
