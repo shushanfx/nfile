@@ -1,6 +1,6 @@
 {
-  "name": "dengjianxin-nfile",
-  "version": "3.0.0",
+  "name": "nfile",
+  "version": "3.1.0",
   "author": "shushanfx",
   "description": "A tool to manage file system.",
   "scripts": {

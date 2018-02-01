@@ -1,4 +1,4 @@
-ace.define("ace/ext/beautify/php_rules",["require","exports","module","ace/token_iterator"], function(require, exports, module) {
+define("ace/ext/beautify/php_rules",["require","exports","module","ace/token_iterator"], function(require, exports, module) {
 "use strict";
 var TokenIterator = require("ace/token_iterator").TokenIterator;
 exports.newLines = [{
@@ -149,7 +149,6 @@ exports.transform = function(iterator, maxPos, context) {
     var value = '';
 
     while (token!==null) {
-        console.log(token);
 
         if( !token ){
             token = iterator.stepForward();
@@ -303,7 +302,7 @@ exports.transform = function(iterator, maxPos, context) {
 
 });
 
-ace.define("ace/ext/beautify",["require","exports","module","ace/token_iterator","ace/ext/beautify/php_rules"], function(require, exports, module) {
+define("ace/ext/beautify",["require","exports","module","ace/token_iterator","ace/ext/beautify/php_rules"], function(require, exports, module) {
 "use strict";
 var TokenIterator = require("ace/token_iterator").TokenIterator;
 
@@ -325,10 +324,10 @@ exports.commands = [{
         exports.beautify(editor.session);
     },
     bindKey: "Ctrl-Shift-B"
-}]
+}];
 
 });
                 (function() {
-                    ace.require(["ace/ext/beautify"], function() {});
+                    window.require(["ace/ext/beautify"], function() {});
                 })();
             

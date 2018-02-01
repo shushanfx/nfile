@@ -1,4 +1,4 @@
-ace.define("ace/mode/lisp_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/lisp_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -72,7 +72,7 @@ var LispHighlightRules = function() {
             next  : "start"
         }
     ]
-}
+};
 
 };
 
@@ -81,7 +81,7 @@ oop.inherits(LispHighlightRules, TextHighlightRules);
 exports.LispHighlightRules = LispHighlightRules;
 });
 
-ace.define("ace/mode/lisp",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/lisp_highlight_rules"], function(require, exports, module) {
+define("ace/mode/lisp",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/lisp_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -90,6 +90,7 @@ var LispHighlightRules = require("./lisp_highlight_rules").LispHighlightRules;
 
 var Mode = function() {
     this.HighlightRules = LispHighlightRules;
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

@@ -1,4 +1,4 @@
-ace.define("ace/mode/toml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/toml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -21,6 +21,10 @@ var TomlHighlightRules = function() {
             token : "string",
             regex : '"(?=.)',
             next  : "qqstring"
+        },
+        {
+            token: ["variable.keygroup.toml"],
+            regex: "(?:^\\s*)(\\[\\[([^\\]]+)\\]\\])"
         },
         {
             token: ["variable.keygroup.toml"],
@@ -58,7 +62,7 @@ var TomlHighlightRules = function() {
             defaultToken: "string"
         }
     ]
-    }
+    };
 
 };
 
@@ -67,7 +71,7 @@ oop.inherits(TomlHighlightRules, TextHighlightRules);
 exports.TomlHighlightRules = TomlHighlightRules;
 });
 
-ace.define("ace/mode/folding/ini",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/ini",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -118,7 +122,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/toml",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/toml_highlight_rules","ace/mode/folding/ini"], function(require, exports, module) {
+define("ace/mode/toml",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/toml_highlight_rules","ace/mode/folding/ini"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -129,6 +133,7 @@ var FoldMode = require("./folding/ini").FoldMode;
 var Mode = function() {
     this.HighlightRules = TomlHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

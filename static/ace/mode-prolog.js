@@ -1,4 +1,4 @@
-ace.define("ace/mode/prolog_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/prolog_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -181,7 +181,7 @@ var PrologHighlightRules = function() {
        [ { token: 'variable.language.anonymous.prolog',
            regex: '\\b_\\b' },
          { token: 'variable.other.prolog',
-           regex: '\\b[A-Z_][a-zA-Z0-9_]*\\b' } ] }
+           regex: '\\b[A-Z_][a-zA-Z0-9_]*\\b' } ] };
     
     this.normalizeRules();
 };
@@ -191,7 +191,7 @@ PrologHighlightRules.metaData = { fileTypes: [ 'plg', 'prolog' ],
       foldingStopMarker: '(%\\s*end(\\s*region)?)|(?=\\.)',
       keyEquivalent: '^~P',
       name: 'Prolog',
-      scopeName: 'source.prolog' }
+      scopeName: 'source.prolog' };
 
 
 oop.inherits(PrologHighlightRules, TextHighlightRules);
@@ -199,7 +199,7 @@ oop.inherits(PrologHighlightRules, TextHighlightRules);
 exports.PrologHighlightRules = PrologHighlightRules;
 });
 
-ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -220,11 +220,11 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
     
-    this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
-    this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
+    this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+    this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
     this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
-    this.startRegionRe = /^\s*(\/\*|\/\/)#region\b/;
+    this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
@@ -312,13 +312,12 @@ oop.inherits(FoldMode, BaseFoldMode);
         
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
-    
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
         
-        var re = /^\s*(?:\/\*|\/\/)#(end)?region\b/;
+        var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
             line = session.getLine(row);
@@ -340,7 +339,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/prolog",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/prolog_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
+define("ace/mode/prolog",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/prolog_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -351,6 +350,7 @@ var FoldMode = require("./folding/cstyle").FoldMode;
 var Mode = function() {
     this.HighlightRules = PrologHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

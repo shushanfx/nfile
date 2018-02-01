@@ -1,4 +1,4 @@
-ace.define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -25,7 +25,7 @@ DocCommentHighlightRules.getTagRule = function(start) {
         token : "comment.doc.tag.storage.type",
         regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
     };
-}
+};
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
@@ -48,7 +48,7 @@ exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
 
-ace.define("ace/mode/d_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/d_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -130,7 +130,7 @@ var DHighlightRules = function() {
                 next : "star-comment"
             }, {
                 token: "comment.shebang",
-                regex: "^\s*#!.*"
+                regex: "^\\s*#!.*"
             }, {
                 token : "comment",
                 regex : "\\/\\+",
@@ -348,7 +348,7 @@ oop.inherits(DHighlightRules, TextHighlightRules);
 exports.DHighlightRules = DHighlightRules;
 });
 
-ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -369,11 +369,11 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
     
-    this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
-    this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
+    this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+    this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
     this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
-    this.startRegionRe = /^\s*(\/\*|\/\/)#region\b/;
+    this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
@@ -461,13 +461,12 @@ oop.inherits(FoldMode, BaseFoldMode);
         
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
-    
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
         
-        var re = /^\s*(?:\/\*|\/\/)#(end)?region\b/;
+        var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
             line = session.getLine(row);
@@ -489,7 +488,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/d",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/d_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
+define("ace/mode/d",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/d_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -500,6 +499,7 @@ var FoldMode = require("./folding/cstyle").FoldMode;
 var Mode = function() {
     this.HighlightRules = DHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

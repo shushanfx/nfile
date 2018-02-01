@@ -200,18 +200,11 @@
                             var obj = $tabs.tabs('getSelected');
                             var index = $tabs.tabs('getTabIndex', obj);
                             if (item.id == "tabMenuRefresh") {
-                                var tab = $tabs.tabs("getTab", index);
-                                var frame = tab.find("iframe");
-                                if (frame && frame.length > 0) {
-                                    frame.get(0).contentWindow.location.reload(true);
-                                }
+                                FileSystem.refreshTab(index);
                             } else if (item.id == "tabMenuClose") {
-                                $tabs.tabs("close", index);
+                                FileSystem.closeTab(index);
                             } else if (item.id == "tabMenuCloseAll") {
-                                var tabs = $tabs.tabs("tabs");
-                                for (var i = tabs.length - 1; i >= 0; i--) {
-                                    $tabs.tabs("close", i);
-                                }
+                                FileSystem.closeAllTab();
                             }
                         }
                     });
@@ -226,6 +219,13 @@
                 });
                 $("#configTabs-wap").tabs('select', index);
                 e.preventDefault();
+            },
+            onBeforeClose: function(title, index){
+                var canClose = FileSystem.canTabClose(index);
+                if(!canClose){
+                    FileSystem.closeTab(index);
+                }
+                return canClose;
             }
         });
 
@@ -330,29 +330,81 @@
 
     (function(w) {
         w.FileSystem = {
-            refreshTab: function(title) {
-                var $tabs = $("#divFileTab");
-                var index = title;
-                if (!title) {
-                    index = $tabs.tabs("getSelected");
+            /**
+             * 获取tab状态，true表示修改状态，false表示未修改
+             */
+            getTabStatus: function(title){
+                var frame = this.getTabFrame(title),
+                    editor;
+                if(frame){
+                    editor = frame.contentWindow.editor;
+                    return editor && editor.isChanged;
                 }
-                var tab = $tabs.tabs("getTab", index);
-                var frame = tab.find("iframe");
-                if (frame && frame.length > 0) {
-                    frame.get(0).contentWindow.location.reload(true);
+                return false;
+            },
+            getTabFrame: function(title){
+                var tab = this.getTab(title);
+                var iframe = tab.find("iframe");
+                if(iframe && iframe.length > 0){
+                    return iframe.get(0);
+                }
+                return null;
+            },
+            getTab: function(title){
+                var $tabs = $("#divFileTab");
+                var index = title, tab;
+                if (!title) {
+                    return $tabs.tabs("getSelected");
+                }
+                if(isNaN(title)){
+                    tab = $tabs.tabs("getTab", index);
+                    if(tab && tab.length > 0){
+                        return tab;
+                    }
+                    index = title + " *";
+                }
+                return $tabs.tabs("getTab", index);
+            },
+            setTabStatus: function(title, isChanged){
+                var tabs = $("#divFileTab");
+                var tab = this.getTab(title);
+                var index = tabs.tabs("getTabIndex", tab);
+                var options = tab.panel("options");
+                if(options){
+                    var newTitle = options.title;
+                    newTitle = !!isChanged ? (newTitle + " *") : newTitle;
+                    tabs.find(".tabs-title").eq(index).html(newTitle);
+                }
+            },
+            refreshTab: function(title) {
+                var frame = this.getTabFrame(title);
+                var editor = null;
+                if(frame){
+                    if(this.getTabStatus(title)){
+                        $.messager.confirm("确认", "当前文档未保存，你确定要刷新？", function(r){
+                            if(r){
+                                frame.contentWindow.location.reload(true);
+                            }
+                        });
+                    }
+                    else{
+                        frame.contentWindow.location.reload(true);
+                    }
                 }
             },
             addTab: function(title, icon, url, options) {
                 var $tabs = $("#divFileTab");
                 var op = options || {};
-                if ($tabs.tabs('getTab', title)) {
-                    $tabs.tabs('select', title);
+                var tab = this.getTab(title);
+                if (tab && tab.length > 0) {
+                    $tabs.tabs('select', $tabs.tabs("getTabIndex", tab));
                     if (op.refresh) {
                         this.refreshTab(title);
                     }
                 } else {
                     $tabs.tabs('add', {
                         title: title,
+                        oldTitle: title,
                         iconCls: 'tree-file ' + icon,
                         content: "<iframe height='98%' width='100%' border ='0' frameBorder='0' scrolling='{scroll}' src='{url}' ></iframe>".replace("{url}", url).replace("{scroll}", op.scroll ? "yes" : "no"),
                         selected: true,
@@ -361,22 +413,56 @@
                     });
                 }
             },
+            forceClose: false,
+            canTabClose: function(title){
+                return this.forceClose || !this.getTabStatus(title);
+            },
             closeTab: function(title) {
                 var $tabs = $("#divFileTab");
-                var index = title,
-                    obj;
-                if (!title) {
-                    obj = $tabs.tabs('getSelected');
-                    index = $tabs.tabs('getTabIndex', obj);
+                var tab = this.getTab(title);
+                var index = $tabs.tabs("getTabIndex", tab);
+                var me = this;
+                if(!this.canTabClose(index)){
+                    $.messager.confirm("确认", "当前文档未保存，你确定要关闭？", function(r){
+                        if(r){
+                            me.forceClose = true;
+                            $tabs.tabs("close", index);
+                            me.forceClose = false;
+                        }
+                    });
                 }
-                $tabs.tabs("close", index);
+                else{
+                    $tabs.tabs("close", index);
+                }
             },
             closeAllTab: function() {
                 var $tabs = $("#divFileTab");
                 var tabs = $tabs.tabs("tabs");
+                var notClosedCount = 0;
                 for (var i = tabs.length - 1; i >= 0; i--) {
-                    $tabs.tabs("close", i);
+                    if(this.getTabStatus(i)){
+                        notClosedCount ++;
+                    }
+                    else{
+                        $tabs.tabs("close", i);
+                    }
                 }
+                if(notClosedCount){
+                    $.messager.alert("警告", "由于文档未保存，还有" + notClosedCount + "个窗口未关闭！");
+                }
+            }
+        };
+        window.onbeforeunload = function(){
+            var $tabs = $("#divFileTab");
+            var tabs = $tabs.tabs("tabs");
+            var notClosedCount = 0;
+            for (var i = tabs.length - 1; i >= 0; i--) {
+                if(FileSystem.getTabStatus(i)){
+                    notClosedCount ++;
+                }
+            }
+            if(notClosedCount){
+                return false;
             }
         }
     })(window);

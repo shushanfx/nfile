@@ -1,5 +1,12 @@
 # Change logs for nfile
 
+## 2018-02-01
+* Fix bugs for chrome editor in inputing Chinese.
+* Get notification when closing the tab while file changed.
+* Get notification when closing the page while file changed.
+* Add mark for changed file.
+* More types of edit file.
+
 ## 2017-11-24
 * Add a new page for view(`/view`)
 * Change the `/index` to `/edit`

@@ -1,4 +1,4 @@
-ace.define("ace/mode/clojure_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/clojure_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -141,16 +141,16 @@ var ClojureHighlightRules = function() {
                 regex : /:[^()\[\]{}'"\^%`,;\s]+/
             }, {
                 token : "string.regexp", //Regular Expressions
-                regex : '/#"(?:\\.|(?:\\\")|[^\""\n])*"/g'
+                regex : '/#"(?:\\.|(?:\\")|[^""\n])*"/g'
             }
 
         ],
         "string" : [
             {
-                token : "constant.language.escape",                
+                token : "constant.language.escape",
                 regex : "\\\\.|\\\\$"
             }, {
-                token : "string",                
+                token : "string",
                 regex : '[^"\\\\]+'
             }, {
                 token : "string",
@@ -166,7 +166,7 @@ oop.inherits(ClojureHighlightRules, TextHighlightRules);
 exports.ClojureHighlightRules = ClojureHighlightRules;
 });
 
-ace.define("ace/mode/matching_parens_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
+define("ace/mode/matching_parens_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
 "use strict";
 
 var Range = require("../range").Range;
@@ -211,7 +211,7 @@ var MatchingParensOutdent = function() {};
 exports.MatchingParensOutdent = MatchingParensOutdent;
 });
 
-ace.define("ace/mode/clojure",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/clojure_highlight_rules","ace/mode/matching_parens_outdent"], function(require, exports, module) {
+define("ace/mode/clojure",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/clojure_highlight_rules","ace/mode/matching_parens_outdent"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -222,6 +222,7 @@ var MatchingParensOutdent = require("./matching_parens_outdent").MatchingParensO
 var Mode = function() {
     this.HighlightRules = ClojureHighlightRules;
     this.$outdent = new MatchingParensOutdent();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

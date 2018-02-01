@@ -1,4 +1,4 @@
-ace.define("ace/mode/julia_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/julia_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -113,7 +113,7 @@ var JuliaHighlightRules = function() {
               'entity.other.inherited-class.julia' ],
            regex: '(type|immutable)(\\s+)([a-zA-Z0-9_]+)(?:(\\s*)(<:)(\\s*[.a-zA-Z0-9_:]+))?' },
          { token: [ 'other.typed-variable.julia', 'support.type.julia' ],
-           regex: '([a-zA-Z0-9_]+)(::[a-zA-Z0-9_{}]+)' } ] }
+           regex: '([a-zA-Z0-9_]+)(::[a-zA-Z0-9_{}]+)' } ] };
     
     this.normalizeRules();
 };
@@ -123,7 +123,7 @@ JuliaHighlightRules.metaData = { fileTypes: [ 'jl' ],
       foldingStartMarker: '^\\s*(?:if|while|for|begin|function|macro|module|baremodule|type|immutable|let)\\b(?!.*\\bend\\b).*$',
       foldingStopMarker: '^\\s*(?:end)\\b.*$',
       name: 'Julia',
-      scopeName: 'source.julia' }
+      scopeName: 'source.julia' };
 
 
 oop.inherits(JuliaHighlightRules, TextHighlightRules);
@@ -131,7 +131,7 @@ oop.inherits(JuliaHighlightRules, TextHighlightRules);
 exports.JuliaHighlightRules = JuliaHighlightRules;
 });
 
-ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -152,11 +152,11 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
     
-    this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
-    this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
+    this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+    this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
     this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
-    this.startRegionRe = /^\s*(\/\*|\/\/)#region\b/;
+    this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
@@ -244,13 +244,12 @@ oop.inherits(FoldMode, BaseFoldMode);
         
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
-    
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
         
-        var re = /^\s*(?:\/\*|\/\/)#(end)?region\b/;
+        var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
             line = session.getLine(row);
@@ -272,7 +271,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/julia",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/julia_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
+define("ace/mode/julia",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/julia_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -283,6 +282,7 @@ var FoldMode = require("./folding/cstyle").FoldMode;
 var Mode = function() {
     this.HighlightRules = JuliaHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 

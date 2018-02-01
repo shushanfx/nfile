@@ -1,4 +1,4 @@
-ace.define("ace/mode/python_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/python_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -9,7 +9,7 @@ var PythonHighlightRules = function() {
     var keywords = (
         "and|as|assert|break|class|continue|def|del|elif|else|except|exec|" +
         "finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|" +
-        "raise|return|try|while|with|yield"
+        "raise|return|try|while|with|yield|async|await"
     );
 
     var builtinConstants = (
@@ -154,7 +154,7 @@ oop.inherits(PythonHighlightRules, TextHighlightRules);
 exports.PythonHighlightRules = PythonHighlightRules;
 });
 
-ace.define("ace/mode/folding/pythonic",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/pythonic",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -177,13 +177,13 @@ oop.inherits(FoldMode, BaseFoldMode);
                 return this.indentationBlock(session, row, match.index + match[2].length);
             return this.indentationBlock(session, row);
         }
-    }
+    };
 
 }).call(FoldMode.prototype);
 
 });
 
-ace.define("ace/mode/python",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/python_highlight_rules","ace/mode/folding/pythonic","ace/range"], function(require, exports, module) {
+define("ace/mode/python",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/python_highlight_rules","ace/mode/folding/pythonic","ace/range"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -195,6 +195,7 @@ var Range = require("../range").Range;
 var Mode = function() {
     this.HighlightRules = PythonHighlightRules;
     this.foldingRules = new PythonFoldMode("\\:");
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
@@ -213,7 +214,7 @@ oop.inherits(Mode, TextMode);
         }
 
         if (state == "start") {
-            var match = line.match(/^.*[\{\(\[\:]\s*$/);
+            var match = line.match(/^.*[\{\(\[:]\s*$/);
             if (match) {
                 indent += tab;
             }

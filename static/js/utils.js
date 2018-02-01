@@ -1,6 +1,22 @@
 (function(w) {
     var d = w.document;
 
+    var throttle = function(fn, delay){
+        var timer = null,
+            registerTime = 0;
+        return function(){
+            var context = this, args = arguments;
+            if(registerTime > 0){
+                return ;
+            }
+            registerTime = + new Date();
+            timer = setTimeout(function(){
+                fn.apply(context, args);
+                registerTime = 0;
+            }, delay);
+        };
+    };
+
     function getCookie(name, defaultValue) {
         var value = "; " + d.cookie;
         var parts = value.split("; " + name + "=");
@@ -47,7 +63,8 @@
             } else if (result && result.code !== 1) {
                 $.messager.alert("提示", result.message || "操作失败！");
             }
-        }
+        },
+        throttle: throttle
     }
     w.Theme = {
         defaultTheme: {

@@ -1,4 +1,4 @@
-ace.define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
+define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
 "use strict";
 
 var Range = require("../range").Range;
@@ -38,7 +38,7 @@ var MatchingBraceOutdent = function() {};
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
 });
 
-ace.define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -65,7 +65,7 @@ DocCommentHighlightRules.getTagRule = function(start) {
         token : "comment.doc.tag.storage.type",
         regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
     };
-}
+};
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
@@ -88,7 +88,7 @@ exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
 
-ace.define("ace/mode/dot_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules","ace/mode/doc_comment_highlight_rules"], function(require, exports, module) {
+define("ace/mode/dot_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules","ace/mode/doc_comment_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -163,13 +163,10 @@ var DotHighlightRules = function() {
         "comment" : [
             {
                 token : "comment", // closing comment
-                regex : ".*?\\*\\/",
-                merge : true,
+                regex : "\\*\\/",
                 next : "start"
             }, {
-                token : "comment", // comment spanning whole line
-                merge : true,
-                regex : ".+"
+                defaultToken : "comment"
             }
         ],
         "qqstring" : [
@@ -215,7 +212,7 @@ exports.DotHighlightRules = DotHighlightRules;
 
 });
 
-ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -236,11 +233,11 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
     
-    this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
-    this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
+    this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+    this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
     this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
-    this.startRegionRe = /^\s*(\/\*|\/\/)#region\b/;
+    this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
@@ -328,13 +325,12 @@ oop.inherits(FoldMode, BaseFoldMode);
         
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
-    
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
         
-        var re = /^\s*(?:\/\*|\/\/)#(end)?region\b/;
+        var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
             line = session.getLine(row);
@@ -356,7 +352,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/dot",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/matching_brace_outdent","ace/mode/dot_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
+define("ace/mode/dot",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/matching_brace_outdent","ace/mode/dot_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -369,6 +365,7 @@ var Mode = function() {
     this.HighlightRules = DotHighlightRules;
     this.$outdent = new MatchingBraceOutdent();
     this.foldingRules = new DotFoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
@@ -389,7 +386,7 @@ oop.inherits(Mode, TextMode);
         }
 
         if (state == "start") {
-            var match = line.match(/^.*(?:\bcase\b.*\:|[\{\(\[])\s*$/);
+            var match = line.match(/^.*(?:\bcase\b.*:|[\{\(\[])\s*$/);
             if (match) {
                 indent += tab;
             }

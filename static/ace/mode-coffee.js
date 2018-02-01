@@ -1,4 +1,4 @@
-ace.define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
     var oop = require("../lib/oop");
@@ -22,8 +22,7 @@ ace.define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/
 
         var illegal = (
             "case|const|default|function|var|void|with|enum|export|implements|" +
-            "interface|let|package|private|protected|public|static|yield|" +
-            "__hasProp|slice|bind|indexOf"
+            "interface|let|package|private|protected|public|static|yield"
         );
 
         var supportClass = (
@@ -54,7 +53,7 @@ ace.define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/
 
         var functionRule = {
             token: ["paren.lparen", "variable.parameter", "paren.rparen", "text", "storage.type"],
-            regex: /(?:(\()((?:"[^")]*?"|'[^')]*?'|\/[^\/)]*?\/|[^()\"'\/])*?)(\))(\s*))?([\-=]>)/.source
+            regex: /(?:(\()((?:"[^")]*?"|'[^')]*?'|\/[^\/)]*?\/|[^()"'\/])*?)(\))(\s*))?([\-=]>)/.source
         };
 
         var stringEscape = /\\(?:x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)/;
@@ -137,7 +136,7 @@ ace.define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/
                     regex : "(\\.)(\\s*)(" + illegal + ")"
                 }, {
                     token : "punctuation.operator",
-                    regex : "\\."
+                    regex : "\\.{1,3}"
                 }, {
                     token : ["keyword", "text", "language.support.class",
                      "text", "keyword", "text", "language.support.class"],
@@ -200,7 +199,7 @@ ace.define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/
     exports.CoffeeHighlightRules = CoffeeHighlightRules;
 });
 
-ace.define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
+define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
 "use strict";
 
 var Range = require("../range").Range;
@@ -240,7 +239,7 @@ var MatchingBraceOutdent = function() {};
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
 });
 
-ace.define("ace/mode/folding/coffee",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode","ace/range"], function(require, exports, module) {
+define("ace/mode/folding/coffee",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode","ace/range"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -327,7 +326,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/coffee",["require","exports","module","ace/mode/coffee_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/folding/coffee","ace/range","ace/mode/text","ace/worker/worker_client","ace/lib/oop"], function(require, exports, module) {
+define("ace/mode/coffee",["require","exports","module","ace/mode/coffee_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/folding/coffee","ace/range","ace/mode/text","ace/worker/worker_client","ace/lib/oop"], function(require, exports, module) {
 "use strict";
 
 var Rules = require("./coffee_highlight_rules").CoffeeHighlightRules;
@@ -348,9 +347,9 @@ oop.inherits(Mode, TextMode);
 
 (function() {
     var indenter = /(?:[({[=:]|[-=]>|\b(?:else|try|(?:swi|ca)tch(?:\s+[$A-Za-z_\x7f-\uffff][$\w\x7f-\uffff]*)?|finally))\s*$|^\s*(else\b\s*)?(?:if|for|while|loop)\b(?!.*\bthen\b)/;
-    var commentLine = /^(\s*)#/;
-    var hereComment = /^\s*###(?!#)/;
-    var indentation = /^\s*/;
+    
+    this.lineCommentStart = "#";
+    this.blockComment = {start: "###", end: "###"};
     
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
@@ -360,25 +359,6 @@ oop.inherits(Mode, TextMode);
             state === 'start' && indenter.test(line))
             indent += tab;
         return indent;
-    };
-    
-    this.toggleCommentLines = function(state, doc, startRow, endRow){
-        console.log("toggle");
-        var range = new Range(0, 0, 0, 0);
-        for (var i = startRow; i <= endRow; ++i) {
-            var line = doc.getLine(i);
-            if (hereComment.test(line))
-                continue;
-                
-            if (commentLine.test(line))
-                line = line.replace(commentLine, '$1');
-            else
-                line = line.replace(indentation, '$&#');
-    
-            range.end.row = range.start.row = i;
-            range.end.column = line.length + 1;
-            doc.replace(range, line);
-        }
     };
     
     this.checkOutdent = function(state, line, input) {
@@ -393,11 +373,11 @@ oop.inherits(Mode, TextMode);
         var worker = new WorkerClient(["ace"], "ace/mode/coffee_worker", "Worker");
         worker.attachToDocument(session.getDocument());
         
-        worker.on("error", function(e) {
-            session.setAnnotations([e.data]);
+        worker.on("annotate", function(e) {
+            session.setAnnotations(e.data);
         });
         
-        worker.on("ok", function(e) {
+        worker.on("terminate", function() {
             session.clearAnnotations();
         });
         
