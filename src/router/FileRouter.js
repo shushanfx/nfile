@@ -1,6 +1,5 @@
 var fs = require('fs')
 var fse = require('fs-extra')
-var grunt = require('grunt')
 var path = require('path')
 var JSZip = require('jszip')
 
@@ -135,7 +134,7 @@ class MyRouter extends BaseRouter {
             if (req.files && req.files.Filedata) {
                 var oldName = path.join(currentName, req.files.Filedata.name)
                 var newName = path.join(currentName, req.files.Filedata.originalname)
-                grunt.file.copy(req.files.Filedata.path, path.join(currentName, req.files.Filedata.originalname))
+                fse.copySync(req.files.Filedata.path, path.join(currentName, req.files.Filedata.originalname))
             }
             RouterUtils.success(res);
         }).html('/file/download', function(req, res) {

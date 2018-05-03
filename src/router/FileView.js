@@ -65,7 +65,7 @@ class MyRouter extends BaseRouter {
             var minValue = 0;
             var total = 0;
             var pageTotal = 0;
-            var topList;
+            var topList = [];
 
             if(!filePath){
                 filePath = "."

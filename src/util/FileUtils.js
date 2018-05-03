@@ -5,7 +5,6 @@ var fs = require("fs");
 var fse = require("fs-extra");
 var mime = require("mime");
 var JSZip = require('jszip');
-var Cache = require("memory-cache");
 var glob = require("glob");
 
 
@@ -23,6 +22,13 @@ class FileUtils {
             finalPath = path.join(process.cwd(), root);
         }
         this.root = root;
+        if(!this.exists()){
+            console.info(`Root directory [${this.root}] is not existed, try to create it.`);
+            this.guaranteeSelf();
+        }
+        else{
+            console.info(`Root directory [${this.root}]. `)
+        }
         return this;
     }
     getPath() {
@@ -116,8 +122,15 @@ class FileUtils {
     }
     guaranteeParents(filePath) {
         var parent = path.join(this.getPath(filePath), "..");
-        if (!fse.existsSync(filePath)) {
+        if (!fse.existsSync(parent)) {
             fse.mkdirpSync(parent);
+        }
+        return this;
+    }
+    guaranteeSelf(filePath){
+        let p = this.getPath(filePath);
+        if(!fse.existsSync(p)){
+            fse.mkdirpSync(p)
         }
         return this;
     }
@@ -181,7 +194,6 @@ class FileUtils {
     listFileSync(filePath, filter) {
         var me = this;
         var list = [];
-        var realPath = this.getPath(filePath);
         var readDir = function(obj) {
             var files = fs.readdirSync(obj.abPath);
             files && files.length > 0 && files.forEach(item => {
@@ -220,6 +232,7 @@ class FileUtils {
 
         return list;
     }
+    
     getDirectoryList(filePath){
         var _path = this.getPath(filePath);
         var list = glob.sync("*", {
