@@ -14,15 +14,16 @@ var RouterUtils = require("./RouterUtils")
 class FileUtils {
     /**
      * Init a file system.
-     * @param {*} root the root directory of file system.
+     * @param {String} root the root directory of file system.
+     * @param {Boolean} [isCreate] Whether to make directory while direcotry is not existed. 
      */
-    init(root) {
+    init(root, isCreate) {
         var finalPath = root;
         if (!path.isAbsolute(root)) {
             finalPath = path.join(process.cwd(), root);
         }
-        this.root = root;
-        if(!this.exists()){
+        this.root = finalPath;
+        if(isCreate && !this.exists()){
             console.info(`Root directory [${this.root}] is not existed, try to create it.`);
             this.guaranteeSelf();
         }

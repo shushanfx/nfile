@@ -6,7 +6,7 @@ var JSZip = require('jszip')
 var systemConfig = require('../config.js').getConfig()
 var BaseRouter = require('./BaseRouter.js')
 var RouterUtils = require('../util/RouterUtils.js')
-var FileUtils = require("../util/FileUtils.js").init(systemConfig.workspace.path)
+var FileUtils = require("../util/FileUtils.js").init(systemConfig.workspace.path, true)
 
 class MyRouter extends BaseRouter {
     init() {
