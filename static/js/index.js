@@ -131,20 +131,21 @@
                                 onHandleFileUpload(node.href);
                             } else if (item.id === "rightMenuDownload") {
                                 window.open("file/download?path=" + encodeURIComponent(node.href));
-                            } else if (item.id === "rightMenuSvnInfo") {
-                                onHandleSvnInfo(node.href);
+                            } else if (item.id === "rightMenuExtract") {
+                                onHandleFileExtract(node.href);
                             }
                         }
                     });
                     // 右击菜单第一次点击
                     $rightMenu.menu("appendItem", { id: "rightMenuAddFile", text: "新建文件", iconCls: "icon icon-add-file", disabled: true });
                     $rightMenu.menu("appendItem", { id: "rightMenuAddDir", text: "新建文件夹", iconCls: "icon icon-add-directory", disabled: true });
-                    $rightMenu.menu('appendItem', { id: "rightMenuUpload", text: "上传文件", iconCls: "icon icon-file-upload", disabled: true });
-                    $rightMenu.menu('appendItem', { id: "rightMenuDownload", text: "下载", iconCls: "icon-file-download", disabled: true });
                     $rightMenu.menu('appendItem', { id: "rightMenuRefactor", text: "重命名", iconCls: "icon icon-file-rename", disabled: true });
                     $rightMenu.menu('appendItem', { id: "rightMenuRemove", text: "删除", iconCls: "icon-remove", disabled: true });
                     $rightMenu.menu('appendItem', { separator: true });
-                    $rightMenu.menu('appendItem', { id: "rightMenuSvnInfo", text: "SVN信息", iconCls: "icon icon-file-svn", disabled: true });
+                    $rightMenu.menu('appendItem', { id: "rightMenuUpload", text: "上传文件", iconCls: "icon icon-file-upload", disabled: true });
+                    $rightMenu.menu('appendItem', { id: "rightMenuDownload", text: "下载", iconCls: "icon-file-download", disabled: true });
+                    $rightMenu.menu('appendItem', { id: "rightMenuExtract", text: "解压", iconCls: "icon-file-extract", disabled: true });
+                    $rightMenu.menu('appendItem', { separator: true });
                     $rightMenu.menu('appendItem', { id: 'rightMenuView', text: '预览', iconCls: 'icon icon-file-view', disabled: true });
                     $rightMenu.menu('appendItem', { id: 'rightMenuTestNew', text: '新窗口测试', iconCls: 'icon icon-file-test', disabled: true });
                 } else {
@@ -156,10 +157,12 @@
                     $rightMenu.menu('disableItem', '#rightMenuTestNew');
                     $rightMenu.menu('disableItem', '#rightMenuUpload');
                     $rightMenu.menu('disableItem', '#rightMenuDownload');
-                    $rightMenu.menu('disableItem', '#rightMenuSvnInfo');
+                    $rightMenu.menu('disableItem', '#rightMenuExtract');
                 }
                 // 针对不同的node点击，使能不同的功能
-                if (node.text == '配置信息' || node.text == '执行命令') {} else if (node.dir == 1) {
+                if (node.text == '配置信息' || node.text == '执行命令') {
+
+                } else if (node.dir == 1) {
                     if (node.text === "文件系统") {
                         $rightMenu.menu('enableItem', '#rightMenuSvnInfo');
                     }
@@ -179,6 +182,8 @@
                     } else if (node.text.indexOf('.md') != -1) {
                         $rightMenu.menu('enableItem', '#rightMenuTestNew');
                         $rightMenu.menu('enableItem', '#rightMenuView');
+                    } else if (node.text.indexOf(".zip") != -1){
+                        $rightMenu.menu('enableItem', '#rightMenuExtract');
                     }
                 }
                 $rightMenu.menu("show", {
@@ -305,18 +310,19 @@
             $win.window("open");
         }
 
-        function onHandleSvnInfo(path) {
+        function onHandleFileExtract(path) {
             $.ajax({
-                url: "doGetSvnInfo.html?current=#{current}",
+                url: "file/extract",
                 dataType: "json",
                 data: { path: path },
-                async: false,
-                timeout: 8000,
+                timeout: 300000,
                 success: function(result) {
                     if (result && result.code == 1) {
-                        Utils.copyValue(result.data);
-                        top.$.messager.alert("提示", "SVN信息已成功复制至剪切板:)");
-                    } else {
+                        onHandleTree();
+                    } else if(result && result.message){
+                        top.$.messager.alert("提示", result.message);
+                    }
+                    else {
                         top.$.messager.alert("提示", "操作失败！");
                     }
                 }

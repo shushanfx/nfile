@@ -5,6 +5,7 @@ var fs = require("fs");
 var fse = require("fs-extra");
 var mime = require("mime");
 var JSZip = require('jszip');
+var ExtractZip = require('extract-zip');
 var glob = require("glob");
 
 
@@ -136,62 +137,78 @@ class FileUtils {
         return this;
     }
     download(filePath, res) {
-            var ext = "",
-                tmp = null;
-            if (filePath) {
-                var currentName = this.getPath(filePath);
-                var listFolder = function(dir, basename, zip) {
-                    var list = fs.readdirSync(dir)
-                    list.forEach(function(item) {
-                        var newPath = path.join(dir, item)
-                        var newBaseName = path.join(basename, item)
-                        var st = fs.statSync(newPath)
-                        if (st.isFile()) {
-                            zip.file(newBaseName, fs.readFileSync(newPath))
-                        } else if (st.isDirectory()) {
-                            listFolder(newPath, newBaseName, zip)
-                        }
-                    })
-                }
-                fs.stat(currentName, function(err, stats) {
-                    if (err) {
-                        RouterUtils.error(res, '获取文件失败！')
-                    } else {
-                        if (stats.isDirectory()) {
-                            var basename = path.basename(currentName)
-                            res.attachment(basename + '.zip')
-                            var zip = new JSZip()
-                            zip.folder(basename)
-                            listFolder(currentName, basename, zip)
-                            zip.generateNodeStream({ streamFile: true })
-                                .pipe(res)
-                                .on('finish', function() {
-                                    res.end();
-                                });
-                        } else if (stats.isFile()) {
-                            res.download(currentName)
-                        } else {
-                            RouterUtils.error(res, '不支持的文件格式！')
-                        }
+        var ext = "",
+            tmp = null;
+        if (filePath) {
+            var currentName = this.getPath(filePath);
+            var listFolder = function(dir, basename, zip) {
+                var list = fs.readdirSync(dir)
+                list.forEach(function(item) {
+                    var newPath = path.join(dir, item)
+                    var newBaseName = path.join(basename, item)
+                    var st = fs.statSync(newPath)
+                    if (st.isFile()) {
+                        zip.file(newBaseName, fs.readFileSync(newPath))
+                    } else if (st.isDirectory()) {
+                        listFolder(newPath, newBaseName, zip)
                     }
-                });
+                })
             }
+            fs.stat(currentName, function(err, stats) {
+                if (err) {
+                    RouterUtils.error(res, '获取文件失败！')
+                } else {
+                    if (stats.isDirectory()) {
+                        var basename = path.basename(currentName)
+                        res.attachment(basename + '.zip')
+                        var zip = new JSZip()
+                        zip.folder(basename)
+                        listFolder(currentName, basename, zip)
+                        zip.generateNodeStream({ streamFile: true })
+                            .pipe(res)
+                            .on('finish', function() {
+                                res.end();
+                            });
+                    } else if (stats.isFile()) {
+                        res.download(currentName)
+                    } else {
+                        RouterUtils.error(res, '不支持的文件格式！')
+                    }
+                }
+            });
         }
-        /**
-         * Get a list for file system.
-         * @param {*} filePath A file path, dot(.) stands for root directory.
-         * @param {* Function} filter a file path, if it is null, return all file. 
-         *  function(obj)
-         *  only return true can take the file into consideration.
-         * @param {*} callback, An object array. The object is like
-         *  {
-         *      name: "the file name",
-         *      ext: "the ext of the file"
-         *      fsPath: "the filepath in file system."
-         *      abPath: "the absolute path of the file"
-         *      stats: "the stats object of the file."
-         *  }
-         */
+    }
+    /**
+     * 
+     * @param {String} from zip文件地址
+     * @param {String} to 目标文件夹地址
+     * @param {Function} [callback] 回调函数
+     */
+    unzip(from, to, callback){
+        var f = this.getPath(from),
+            t = this.getPath(to);
+
+        ExtractZip(f, {
+            dir: t
+        }, function(err){
+            callback && callback(err);
+        });
+    }
+    /**
+     * Get a list for file system.
+     * @param {*} filePath A file path, dot(.) stands for root directory.
+     * @param {* Function} filter a file path, if it is null, return all file. 
+     *  function(obj)
+     *  only return true can take the file into consideration.
+     * @param {*} callback, An object array. The object is like
+     *  {
+     *      name: "the file name",
+     *      ext: "the ext of the file"
+     *      fsPath: "the filepath in file system."
+     *      abPath: "the absolute path of the file"
+     *      stats: "the stats object of the file."
+     *  }
+     */
     listFileSync(filePath, filter) {
         var me = this;
         var list = [];

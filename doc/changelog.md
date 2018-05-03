@@ -4,7 +4,8 @@
 * Fix the bug when dest directory is empty. [issue 3](https://github.com/shushanfx/nfile/issues/3)   
 * Adjust depedencies, remove unused ones. [issue 1](https://github.com/shushanfx/nfile/issues/1)      
     * remove bootstrap-vue, chokidar   
-    * remove memory-cache.   
+    * remove memory-cache.      
+* Add unzip feature for zip file.
 
 ## 2018-02-01
 * Fix bugs for chrome editor in inputing Chinese.

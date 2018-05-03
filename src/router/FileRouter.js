@@ -159,6 +159,37 @@ class MyRouter extends BaseRouter {
                     children: getFileTree(filePath, isAll)
                 }]
             })
+        }).json('/file/extract', function(req, res){
+            var filePath = req.query.path;
+            if(filePath && filePath.indexOf(".zip") != -1){
+                if(FileUtils.exists(filePath)){
+                    var dist = filePath.replace(/\.zip$/gi, "");
+                    if(FileUtils.exists(dist)){
+                        RouterUtils.fail(res, "目标文件夹已存在！");
+                    }
+                    else{
+                        FileUtils.unzip(filePath, dist, function(err){
+                            if(err){
+                                RouterUtils.fail(res, "解压失败！");
+                            }
+                            else{
+                                RouterUtils.success(res, null, {
+                                    data: {
+                                        from : filePath,
+                                        to: dist
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+                else{
+                    RouterUtils.fail(res, "解压的文件不存在！");
+                }
+            }
+            else{
+                RouterUtils.fail(res, "目前只支持zip文件解压！");
+            }
         });
     }
 }
