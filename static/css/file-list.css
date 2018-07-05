@@ -73,6 +73,19 @@ a img {
     outline: none;
 }
 
+img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    padding: 10px 0;
+}
+
+.main-content {
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.8;
+}
+
 .btn {
     padding: 7px 14px;
     border-radius: 2px;

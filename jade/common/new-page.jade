@@ -9,7 +9,7 @@ html(lang='zh-CN')
 		link(rel='shortcut icon', href='/favicon.ico')
 		link(rel='stylesheet', href='//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css')
 		link(rel='stylesheet', href='//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css')
-		link(rel='stylesheet', href='#{base}/css/file-list.css')
+		link(rel='stylesheet', href='#{base}/css/file-list.css?v=1')
 		block css
 		include nfile
 	body.home-template
@@ -40,9 +40,9 @@ html(lang='zh-CN')
 		section.content-wrap
 			.container
 				.row
-					main.col-md-8.main-content
+					main#mainContent.col-md-8.main-content
 						block main
-					aside.col-md-4.sidebar
+					aside#asideRight.col-md-4.sidebar
 						block aside
 							.widget
 									h4.title git地址
@@ -117,5 +117,5 @@ html(lang='zh-CN')
 		script(src='//cdn.bootcss.com/jquery/1.11.3/jquery.min.js')
 		script(src='//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js')
 		script(src='//cdn.bootcss.com/highlight.js/8.5/highlight.min.js')
-		script(src='#{base}/js/file-list.js')
+		script(src='#{base}/js/file-list.js?v=1')
 		block script

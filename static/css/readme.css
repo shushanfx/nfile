@@ -1,3 +1,13 @@
 .readme-body{
     margin: 10px 10px;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.8;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    padding: 10px 0;
 }

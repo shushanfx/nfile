@@ -2,6 +2,8 @@
 
 ## 2018-7-5
 * When viewing a directory, just download it as a zip file, instead of throwing an error.
+* Change the view style for readme file. such as image in the center.
+* Fix the aside view when scrolling down. 
 
 ## 2018-5-3
 * Fix the bug when dest directory is empty. [issue 3](https://github.com/shushanfx/nfile/issues/3)   
