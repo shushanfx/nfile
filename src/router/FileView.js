@@ -44,16 +44,27 @@ class MyRouter extends BaseRouter {
                     }
                 });
             } else if (ext === "docx" || ext === "doc" ||
-                ext === "ppt" || ext === "pptx") {
+                ext === "ppt" || ext === "pptx" ||
+                ext === "zip" || ext === "war" || 
+                ext === "gz") {
                 // if it is a word | ppt file, it will use download page.
                 FileUtils.download(currentName, res);
             } else {
-                var buffer = fs.readFileSync(currentName)
-                if (buffer) {
-                    res.writeHead(200, { 'Content-Type': FileUtils.getFileMimeType(currentName) })
-                    res.end(buffer, 'binary')
-                } else {
-                    RouterUtils.error(res, "获取文件失败！");
+                var stats = fs.statSync(currentName);
+                if(stats.isDirectory()){
+                    FileUtils.download(currentName, res);
+                }
+                else if (stats.isFile()){
+                    var buffer = fs.readFileSync(currentName)
+                    if (buffer) {
+                        res.writeHead(200, { 'Content-Type': FileUtils.getFileMimeType(currentName) })
+                        res.end(buffer, 'binary')
+                    } else {
+                        RouterUtils.error(res, "获取文件失败！");
+                    }
+                }
+                else{
+                    RouterUtils.error(res, "不支持该文件格式！");
                 }
             }
         });

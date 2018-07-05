@@ -1,5 +1,8 @@
 # Change logs for nfile
 
+## 2018-7-5
+* When viewing a directory, just download it as a zip file, instead of throwing an error.
+
 ## 2018-5-3
 * Fix the bug when dest directory is empty. [issue 3](https://github.com/shushanfx/nfile/issues/3)   
 * Adjust depedencies, remove unused ones. [issue 1](https://github.com/shushanfx/nfile/issues/1)      
