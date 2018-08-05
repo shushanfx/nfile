@@ -32,6 +32,25 @@ class MyRouter extends BaseRouter {
             }
             var currentName = uri;
             var ext = FileUtils.getExtName(currentName);
+            var isPattern = currentName.indexOf('*') !== -1;
+            if (isPattern){
+                console.info('Get file of pattern: ', currentName)
+                let currentItem = FileUtils.getRealFileByMtime(currentName);
+                if(currentItem && currentItem.length > 0){
+                    var buffer = fs.readFileSync(currentItem[0].name)
+                    let obj = { 'Content-Type': FileUtils.getFileMimeType(currentItem[0].name) };
+                    if (buffer) {
+                        res.writeHead(200, obj);
+                        res.end(buffer, 'binary')
+                    } else {
+                        RouterUtils.error(res, "获取文件失败！");
+                    }
+                }
+                else{
+                    RouterUtils.error(res, "该文件不存在！");
+                }
+                return ;
+            }
             if (ext === "md") {
                 MarkdownUtils.parse2Html(currentName, function(err, obj) {
                     if (err) {

@@ -3,3 +3,10 @@ node_modules
 
 npm-*.log
 package-lock.json
+
+# add data file to gitignore.
+data
+
+# add localserver.json localserver.js
+localserver.json
+localserver.js

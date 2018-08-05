@@ -294,6 +294,35 @@ class FileUtils {
         }
         return "."
     }
+
+    getRealFileByMtime(path){
+        let _path = this.getPath(path);
+        let list = glob.sync(_path, {
+            stat: true,
+            nodir: true
+        });
+        list = list.map(item => {
+            let abc = {
+                name: item,
+                stats: fs.statSync(item)
+            }
+            //console.info(abc.stats.mtime.getTime(), abc.name);
+            return abc;
+        });
+        list.sort((a, b) => {
+            if(a.stats && b.stats){
+                return b.stats.mtime.getTime() - a.stats.mtime.getTime(); 
+            }
+            return 0;
+        });
+        list.forEach(item => {
+            console.info(item.stats.mtime.getTime(), item.name);
+        })
+        if(list && list.length > 0){
+            return list;
+        }
+        return [];
+    }
 }
 
 module.exports = exports = new FileUtils();
