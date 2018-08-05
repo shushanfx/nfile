@@ -19,19 +19,41 @@
                     onHandleTab(node.text, node.iconCls || "", node.href);
                 } else if (node.dir == 0) {
                     var url = "file/edit?path=" + window.encodeURIComponent(node.href);
+                    if (node.href.indexOf(".exe") !== -1 ||
+                        node.href.indexOf(".zip") !== -1 || 
+                        node.href.indexOf(".tar") !== -1 ||
+                        node.href.indexOf(".apk") !== -1 ||
+                        node.href.indexOf(".xz") !== -1 ||
+                        node.href.indexOf(".war") !== -1 ||
+                        node.href.indexOf(".gz") !== -1 ||
+                        node.href.indexOf(".app") !== -1 ||
+                        node.href.indexOf(".dll") !== -1 ||
+                        node.href.indexOf(".so") !== -1){
+                        // do nothing.
+                        return true;
+                    }
                     if (node.href.indexOf(".ppt") !== -1 ||
                         node.href.indexOf("pptx") !== -1 ||
                         node.href.indexOf("doc") !== -1 ||
                         node.href.indexOf("xls") !== -1 ||
                         node.href.indexOf("xlsx") !== -1 ||
-                        node.href.indexOf("pdf") !== -1 ||
                         node.href.indexOf("docx") !== -1) {
                         window.open('file/view/' + node.href.replace(/\\/gi, "/"));
                         return true;
                     }
                     if (node.href.indexOf(".gif") !== -1 ||
                         node.href.indexOf(".png") !== -1 ||
-                        node.href.indexOf(".jpg") !== -1) {
+                        node.href.indexOf(".jpeg") !== -1 ||
+                        node.href.indexOf(".jpg") !== -1 ||
+                        node.href.indexOf(".ico") !== -1 ||
+                        node.href.indexOf(".tiff") !== -1 ||
+                        node.href.indexOf("pdf") !== -1 ||
+                        node.href.indexOf(".tff") !== -1 ||
+                        node.href.indexOf(".mp3") !== -1 ||
+                        node.href.indexOf(".wav") !== -1 ||
+                        node.href.indexOf(".bmp") !== -1 ||
+                        node.href.indexOf(".mvb") !== -1 ||
+                        node.href.indexOf(".swf") !== -1) {
                         url = "file/view?path=" + window.encodeURIComponent(node.href)
                     }
                     onHandleTab(node.text, node.iconCls || "", url);
