@@ -24,11 +24,10 @@ class FileUtils {
             finalPath = path.join(process.cwd(), root);
         }
         this.root = finalPath;
-        if(isCreate && !this.exists()){
+        if (isCreate && !this.exists()) {
             console.info(`Root directory [${this.root}] is not existed, try to create it.`);
             this.guaranteeSelf();
-        }
-        else{
+        } else {
             console.info(`Root directory [${this.root}]. `)
         }
         return this;
@@ -39,7 +38,7 @@ class FileUtils {
         if (arguments.length > 0) {
             for (i = 0; i < arguments.length; i++) {
                 item = arguments[i];
-                if (typeof(item) === "string") {
+                if (typeof (item) === "string") {
                     if (item === ".") {
                         continue;
                     } else if (path.isAbsolute(item)) {
@@ -56,13 +55,35 @@ class FileUtils {
         }
         return tempPath;
     }
+    isXML(filePath) {
+        var obj = {
+            'xml': 'GBK',
+            'xsl': 'GBK'
+        }
+        var arr = filePath.split('.');
+        var ret = obj[arr[arr.length - 1]];
+        return !!ret;
+    }
+    getFileEncodingWithContent(fileContent, defaultEncoding) {
+        if (fileContent) {
+            var lineOne = fileContent.split('\n')[0];
+            var reg = /\<\?xml[^\?]*encoding=[\'\"]?([^\s\'\"]+)[\'\"]/i;
+            if (lineOne) {
+                var arr = reg.exec(lineOne);
+                if (arr && arr.length >= 2) {
+                    return arr[1] || defaultEncoding;
+                }
+            }
+        }
+        return defaultEncoding;
+    }
     getFileEncoding(filePath) {
         var obj = {
             'xml': 'GBK',
             'xsl': 'GBK'
         }
-        var arr = filePath.split('.')
-        var ret = obj[arr[arr.length - 1]]
+        var arr = filePath.split('.');
+        var ret = obj[arr[arr.length - 1]];
         if (ret) {
             return ret
         } else {
@@ -82,7 +103,9 @@ class FileUtils {
         return 0;
     }
     writeFileContent(filePath, content, encoding) {
-        return grunt.file.write(filePath, content, { 'encoding': encoding });
+        return grunt.file.write(filePath, content, {
+            'encoding': encoding
+        });
     }
     getFileMimeType(filePath) {
         if (!path.isAbsolute(filePath)) {
@@ -129,9 +152,9 @@ class FileUtils {
         }
         return this;
     }
-    guaranteeSelf(filePath){
+    guaranteeSelf(filePath) {
         let p = this.getPath(filePath);
-        if(!fse.existsSync(p)){
+        if (!fse.existsSync(p)) {
             fse.mkdirpSync(p)
         }
         return this;
@@ -141,9 +164,9 @@ class FileUtils {
             tmp = null;
         if (filePath) {
             var currentName = this.getPath(filePath);
-            var listFolder = function(dir, basename, zip) {
+            var listFolder = function (dir, basename, zip) {
                 var list = fs.readdirSync(dir)
-                list.forEach(function(item) {
+                list.forEach(function (item) {
                     var newPath = path.join(dir, item)
                     var newBaseName = path.join(basename, item)
                     var st = fs.statSync(newPath)
@@ -154,7 +177,7 @@ class FileUtils {
                     }
                 })
             }
-            fs.stat(currentName, function(err, stats) {
+            fs.stat(currentName, function (err, stats) {
                 if (err) {
                     RouterUtils.error(res, '获取文件失败！')
                 } else {
@@ -164,9 +187,11 @@ class FileUtils {
                         var zip = new JSZip()
                         zip.folder(basename)
                         listFolder(currentName, basename, zip)
-                        zip.generateNodeStream({ streamFile: true })
+                        zip.generateNodeStream({
+                                streamFile: true
+                            })
                             .pipe(res)
-                            .on('finish', function() {
+                            .on('finish', function () {
                                 res.end();
                             });
                     } else if (stats.isFile()) {
@@ -184,13 +209,13 @@ class FileUtils {
      * @param {String} to 目标文件夹地址
      * @param {Function} [callback] 回调函数
      */
-    unzip(from, to, callback){
+    unzip(from, to, callback) {
         var f = this.getPath(from),
             t = this.getPath(to);
 
         ExtractZip(f, {
             dir: t
-        }, function(err){
+        }, function (err) {
             callback && callback(err);
         });
     }
@@ -212,7 +237,7 @@ class FileUtils {
     listFileSync(filePath, filter) {
         var me = this;
         var list = [];
-        var readDir = function(obj) {
+        var readDir = function (obj) {
             var files = fs.readdirSync(obj.abPath);
             files && files.length > 0 && files.forEach(item => {
                 var goodPath = path.join(obj.abPath, item);
@@ -250,8 +275,8 @@ class FileUtils {
 
         return list;
     }
-    
-    getDirectoryList(filePath){
+
+    getDirectoryList(filePath) {
         var _path = this.getPath(filePath);
         var list = glob.sync("*", {
             cwd: _path,
@@ -286,16 +311,16 @@ class FileUtils {
         }
         return "EMPTY";
     }
-    rel(){
+    rel() {
         var nowPath = this.getPath.apply(this, arguments);
         var basePath = this.getPath(".");
-        if(pathExtra.contains(basePath, nowPath)){
+        if (pathExtra.contains(basePath, nowPath)) {
             return path.relative(basePath, nowPath);
         }
         return "."
     }
 
-    getRealFileByMtime(path){
+    getRealFileByMtime(path) {
         let _path = this.getPath(path);
         let list = glob.sync(_path, {
             stat: true,
@@ -310,15 +335,15 @@ class FileUtils {
             return abc;
         });
         list.sort((a, b) => {
-            if(a.stats && b.stats){
-                return b.stats.mtime.getTime() - a.stats.mtime.getTime(); 
+            if (a.stats && b.stats) {
+                return b.stats.mtime.getTime() - a.stats.mtime.getTime();
             }
             return 0;
         });
         list.forEach(item => {
             console.info(item.stats.mtime.getTime(), item.name);
         })
-        if(list && list.length > 0){
+        if (list && list.length > 0) {
             return list;
         }
         return [];
