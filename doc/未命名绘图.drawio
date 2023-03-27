@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-27T06:03:14.480Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="3fwyWRUa_r1xxohfnUdF" version="21.1.0" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-03-27T06:35:39.721Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="kleoXOP623C7iLipiDQQ" version="21.1.0" type="github" pages="4">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
-    <mxGraphModel dx="1493" dy="710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1193" dy="710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -273,6 +273,128 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="1fffh9wYiOY1Lg6xo310-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="wPUixyVPcS4irTmX39V8-1" target="wPUixyVPcS4irTmX39V8-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="535" y="300" />
+              <mxPoint x="535" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="170" width="410" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wPUixyVPcS4irTmX39V8-2" target="wPUixyVPcS4irTmX39V8-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="wPUixyVPcS4irTmX39V8-2" target="wPUixyVPcS4irTmX39V8-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="200" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-3" value="通讯模块" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="250" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-4" value="加解密模块" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="250" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-5" value="人脸识别" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="210" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-6" value="webview" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="210" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="wPUixyVPcS4irTmX39V8-7" target="wPUixyVPcS4irTmX39V8-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="390" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="380" y="390" />
+              <mxPoint x="215" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="369" as="sourcePoint" />
+            <mxPoint x="330" y="410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="380" y="390" />
+              <mxPoint x="330" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="370" as="sourcePoint" />
+            <mxPoint x="430" y="411" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="380" y="390" />
+              <mxPoint x="430" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-7" value="OpenServer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="331" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-8" value="OpenSDK" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="188" width="80" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-9" value="信易贷APP" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="160" width="80" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-10" value="前端服务" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="331" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1fffh9wYiOY1Lg6xo310-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="wPUixyVPcS4irTmX39V8-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="429.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-11" value="开放平台" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="412" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-12" value="行内系统" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="412" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-15" value="DB服务" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="412" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wPUixyVPcS4irTmX39V8-16" value="信易贷后台" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="332" width="70" height="119" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="JaktBWOUI0QGUDboVFod" name="第 4 页">
+    <mxGraphModel dx="954" dy="568" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="AvMxlqQdAJS0n23awEo_-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AvMxlqQdAJS0n23awEo_-2" target="AvMxlqQdAJS0n23awEo_-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-2" value="点击推广Banner" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AvMxlqQdAJS0n23awEo_-3" target="AvMxlqQdAJS0n23awEo_-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-3" value="SDK初始化" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AvMxlqQdAJS0n23awEo_-5" target="AvMxlqQdAJS0n23awEo_-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-5" value="加载业务页面" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AvMxlqQdAJS0n23awEo_-6" value="操作完成" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
