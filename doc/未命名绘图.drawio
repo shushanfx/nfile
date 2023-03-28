@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-28T09:05:04.875Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="2wuvb71xfeoxhtwB05-N" version="21.1.0" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2023-03-28T09:07:09.095Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="dGsKDN_mdtB5Qnjnit3r" version="21.1.0" type="github" pages="6">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="用户认证流程">
     <mxGraphModel dx="1193" dy="710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -7,35 +7,38 @@
         <mxCell id="HUE91jR6MAECFMGT26jf-1" value="信易贷" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="110" y="100" width="140" height="570" as="geometry" />
         </mxCell>
-        <mxCell id="At1jHbaxIyddvzB34sir-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="HUE91jR6MAECFMGT26jf-1" source="HUE91jR6MAECFMGT26jf-8" target="HUE91jR6MAECFMGT26jf-42">
+        <mxCell id="RnyD0XQLq7-ZdQlaNJKQ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="HUE91jR6MAECFMGT26jf-1" source="HUE91jR6MAECFMGT26jf-8" target="HUE91jR6MAECFMGT26jf-42">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-8" value="banner点击" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-1">
           <mxGeometry x="27.5" y="40" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-41" value="传递AuthCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-1">
-          <mxGeometry x="27.5" y="175" width="95" height="30" as="geometry" />
+          <mxGeometry x="27.5" y="193" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-42" value="请求登陆" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-1">
-          <mxGeometry x="27.5" y="100" width="95" height="30" as="geometry" />
+          <mxGeometry x="27.5" y="142" width="95" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RnyD0XQLq7-ZdQlaNJKQ-3" value="省略SDK认证" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="HUE91jR6MAECFMGT26jf-1">
+          <mxGeometry x="45" y="90" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-2" value="Open SDK" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-15" value="发起登陆" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="20" y="230" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="248" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-39" value="登陆成功" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="20" y="510" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="528" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-3" value="Open Server" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="390" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-18" value="获取用户信息" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="20" y="270" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="288" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-26" value="生成token" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="20" y="480" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="498" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-47" target="HUE91jR6MAECFMGT26jf-49">
           <mxGeometry relative="1" as="geometry" />
@@ -48,8 +51,8 @@
         <mxCell id="HUE91jR6MAECFMGT26jf-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-47" target="HUE91jR6MAECFMGT26jf-26">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="6.25" y="345" />
-              <mxPoint x="6.25" y="495" />
+              <mxPoint x="6.25" y="363" />
+              <mxPoint x="6.25" y="513" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -59,28 +62,28 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-47" value="首次登陆" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="40.75" y="320" width="51" height="50" as="geometry" />
+          <mxGeometry x="40.75" y="338" width="51" height="50" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-49" target="HUE91jR6MAECFMGT26jf-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-49" value="存储用户信息" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="20" y="400" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="418" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-4" value="开放平台" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="530" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-19" value="请求转发" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-4">
-          <mxGeometry x="27.5" y="270" width="95" height="30" as="geometry" />
+          <mxGeometry x="27.5" y="288" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-5" value="信易贷后台" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="670" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-10" value="生成AuthCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-5">
-          <mxGeometry x="22.5" y="101" width="95" height="30" as="geometry" />
+          <mxGeometry x="22.5" y="143" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-20" value="验证AuthCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-5">
-          <mxGeometry x="20" y="270" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="288" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-6" target="HUE91jR6MAECFMGT26jf-8">
           <mxGeometry relative="1" as="geometry" />
@@ -99,9 +102,9 @@
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-20" target="HUE91jR6MAECFMGT26jf-47">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="506.5" y="435" as="targetPoint" />
+            <mxPoint x="506.5" y="453" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="737.25" y="445" />
+              <mxPoint x="737.25" y="463" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -113,22 +116,13 @@
         <mxCell id="HUE91jR6MAECFMGT26jf-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-26" target="HUE91jR6MAECFMGT26jf-39">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="458.5" y="595" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.559;exitY=0.961;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" target="HUE91jR6MAECFMGT26jf-41" source="HUE91jR6MAECFMGT26jf-10">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="747.75" y="280" as="sourcePoint" />
-            <Array as="points">
-              <mxPoint x="746" y="250" />
-              <mxPoint x="185" y="250" />
+              <mxPoint x="458.5" y="613" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-45" value="传入参数" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-41" target="HUE91jR6MAECFMGT26jf-15">
           <mxGeometry x="0.011" relative="1" as="geometry">
-            <mxPoint x="321.25" y="315" as="targetPoint" />
+            <mxPoint x="321.25" y="333" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
