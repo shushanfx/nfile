@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2023-03-28T08:10:13.258Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="WV9TggxBzROqsO4ltm3q" version="21.1.0" type="github" pages="6">
-  <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
+<mxfile host="app.diagrams.net" modified="2023-03-28T09:05:04.875Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="2wuvb71xfeoxhtwB05-N" version="21.1.0" type="github" pages="6">
+  <diagram id="prtHgNgQTEPvFCAcTncT" name="用户认证流程">
     <mxGraphModel dx="1193" dy="710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="HUE91jR6MAECFMGT26jf-1" value="信易贷" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="110" y="100" width="140" height="690" as="geometry" />
+          <mxGeometry x="110" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="At1jHbaxIyddvzB34sir-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="HUE91jR6MAECFMGT26jf-1" source="HUE91jR6MAECFMGT26jf-8" target="HUE91jR6MAECFMGT26jf-42">
           <mxGeometry relative="1" as="geometry" />
@@ -20,34 +20,22 @@
           <mxGeometry x="27.5" y="100" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-2" value="Open SDK" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="250" y="100" width="140" height="690" as="geometry" />
+          <mxGeometry x="250" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-15" value="发起登陆" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="23.75" y="340" width="95" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-29" value="SDK初始化" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="23.75" y="215" width="95" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-2" source="HUE91jR6MAECFMGT26jf-34" target="HUE91jR6MAECFMGT26jf-15">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-34" value="认证成功" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="23.75" y="265" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="230" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-39" value="登陆成功" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-2">
-          <mxGeometry x="23.75" y="620" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="510" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-3" value="Open Server" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="390" y="100" width="140" height="690" as="geometry" />
+          <mxGeometry x="390" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-18" value="获取用户信息" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="23.75" y="380" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="270" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-26" value="生成token" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="23.75" y="590" width="95" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-32" value="认证" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="31.25" y="215" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="480" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-47" target="HUE91jR6MAECFMGT26jf-49">
           <mxGeometry relative="1" as="geometry" />
@@ -60,8 +48,8 @@
         <mxCell id="HUE91jR6MAECFMGT26jf-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-47" target="HUE91jR6MAECFMGT26jf-26">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="10" y="455" />
-              <mxPoint x="10" y="605" />
+              <mxPoint x="6.25" y="345" />
+              <mxPoint x="6.25" y="495" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -71,28 +59,28 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-47" value="首次登陆" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="44.5" y="430" width="51" height="50" as="geometry" />
+          <mxGeometry x="40.75" y="320" width="51" height="50" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-49" target="HUE91jR6MAECFMGT26jf-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-49" value="存储用户信息" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-3">
-          <mxGeometry x="23.75" y="510" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="400" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-4" value="开放平台" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="530" y="100" width="140" height="690" as="geometry" />
+          <mxGeometry x="530" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-19" value="请求转发" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-4">
-          <mxGeometry x="31.25" y="380" width="95" height="30" as="geometry" />
+          <mxGeometry x="27.5" y="270" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-5" value="信易贷后台" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="670" y="100" width="140" height="690" as="geometry" />
+          <mxGeometry x="670" y="100" width="140" height="570" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-10" value="生成AuthCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-5">
           <mxGeometry x="22.5" y="101" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-20" value="验证AuthCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HUE91jR6MAECFMGT26jf-5">
-          <mxGeometry x="23.75" y="380" width="95" height="30" as="geometry" />
+          <mxGeometry x="20" y="270" width="95" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-6" target="HUE91jR6MAECFMGT26jf-8">
           <mxGeometry relative="1" as="geometry" />
@@ -111,9 +99,9 @@
         </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-20" target="HUE91jR6MAECFMGT26jf-47">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="510.25" y="545" as="targetPoint" />
+            <mxPoint x="506.5" y="435" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="741" y="555" />
+              <mxPoint x="737.25" y="445" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -122,20 +110,10 @@
             <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-29" target="HUE91jR6MAECFMGT26jf-32">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-32" target="HUE91jR6MAECFMGT26jf-34">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="471.25" y="380" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
         <mxCell id="HUE91jR6MAECFMGT26jf-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-26" target="HUE91jR6MAECFMGT26jf-39">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="462.25" y="705" />
+              <mxPoint x="458.5" y="595" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -148,9 +126,9 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-45" value="传入参数" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-41" target="HUE91jR6MAECFMGT26jf-29">
+        <mxCell id="HUE91jR6MAECFMGT26jf-45" value="传入参数" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HUE91jR6MAECFMGT26jf-41" target="HUE91jR6MAECFMGT26jf-15">
           <mxGeometry x="0.011" relative="1" as="geometry">
-            <mxPoint x="319.75" y="350" as="targetPoint" />
+            <mxPoint x="321.25" y="315" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
