@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-30T05:57:55.397Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="m1nWa0N8DpX-njlcfsCU" version="21.1.0" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2023-03-30T09:08:34.510Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="BL5nT-lkszt77FEjvmRn" version="21.1.0" type="github" pages="7">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="用户认证流程">
     <mxGraphModel dx="1193" dy="710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -43,7 +43,7 @@
         <mxCell id="HUE91jR6MAECFMGT26jf-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="HUE91jR6MAECFMGT26jf-3" source="HUE91jR6MAECFMGT26jf-47" target="HUE91jR6MAECFMGT26jf-49">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HUE91jR6MAECFMGT26jf-53" value="否" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HUE91jR6MAECFMGT26jf-50">
+        <mxCell id="HUE91jR6MAECFMGT26jf-53" value="是" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HUE91jR6MAECFMGT26jf-50">
           <mxGeometry x="-0.536" y="2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -425,7 +425,7 @@
         <mxCell id="uj-32wrSAdTSAGL1xzPO-29" value="用户" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
           <mxGeometry x="30" y="125" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="uj-32wrSAdTSAGL1xzPO-43" value="产品id" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="uj-32wrSAdTSAGL1xzPO-3" target="uj-32wrSAdTSAGL1xzPO-42">
+        <mxCell id="uj-32wrSAdTSAGL1xzPO-43" value="页面ID" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="uj-32wrSAdTSAGL1xzPO-3" target="uj-32wrSAdTSAGL1xzPO-42">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="uj-32wrSAdTSAGL1xzPO-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="uj-32wrSAdTSAGL1xzPO-42" target="uj-32wrSAdTSAGL1xzPO-45">
