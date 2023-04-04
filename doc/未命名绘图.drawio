@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-04T06:33:56.342Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="G5CEmVh6ROrYEWUqlGtm" version="21.1.2" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2023-04-04T08:05:06.668Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="aQH_TshLB6TQKxun5tMj" version="21.1.2" type="github" pages="7">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="用户认证流程">
     <mxGraphModel dx="1272" dy="712" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -587,7 +587,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bYAJvbRQxftsofkuRhuR" name="SDK认证流程">
-    <mxGraphModel dx="1193" dy="668" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1272" dy="712" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -814,6 +814,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="QFGqSMkzPeWq82NSdNOb-1" value="session token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VvSb4gfVBr4AVZhoh4Xt-74">
+          <mxGeometry x="-0.1016" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="VvSb4gfVBr4AVZhoh4Xt-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="SnE8CGsp42bAyjMPCYWl-1" source="VvSb4gfVBr4AVZhoh4Xt-73" target="VvSb4gfVBr4AVZhoh4Xt-78" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -989,7 +994,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="SnE8CGsp42bAyjMPCYWl-60" value="sdkToken" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SnE8CGsp42bAyjMPCYWl-57">
+        <mxCell id="SnE8CGsp42bAyjMPCYWl-60" value="session token&lt;br&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SnE8CGsp42bAyjMPCYWl-57">
           <mxGeometry x="-0.0018" y="2" relative="1" as="geometry">
             <mxPoint x="-10" y="-2" as="offset" />
           </mxGeometry>
