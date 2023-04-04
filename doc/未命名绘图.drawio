@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-04T05:40:00.153Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="8bPYGKGBSNA_FrjEnFiU" version="21.1.2" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2023-04-04T05:41:55.414Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="jOSu4PtDU8TZ7vf03Dl6" version="21.1.2" type="github" pages="7">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="用户认证流程">
     <mxGraphModel dx="954" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -831,6 +831,11 @@
             <Array as="points">
               <mxPoint x="490" y="1965" />
             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SnE8CGsp42bAyjMPCYWl-60" value="sdkToken" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="SnE8CGsp42bAyjMPCYWl-57">
+          <mxGeometry x="-0.0018" y="2" relative="1" as="geometry">
+            <mxPoint x="-10" y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="SnE8CGsp42bAyjMPCYWl-58" value="appId&lt;br&gt;appSign" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
