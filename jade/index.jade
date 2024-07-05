@@ -26,7 +26,7 @@ html
                 | &nbsp;&nbsp;#{config.cnName}
             span.head(style='float:right; padding-right:30px;')
                 a#btnLoginOut(href="#{base}/list", style="margin-left: 10px;", target="_blank") 预览平台
-        div(data-options="region:'west',title: '文件夹',tools: [{iconCls: 'icon-reload', handler: function(){ onHandleTree();}}]",style="width:220px;")
+        div(data-options="region:'west',title: '文件夹',tools: [{iconCls: 'icon-reload', handler: function(){ onHandleTree();}}], split: true",style="width:220px;")
             div#divFileTree.easyui-tree
         div(data-options="region:'center'")
             block content
